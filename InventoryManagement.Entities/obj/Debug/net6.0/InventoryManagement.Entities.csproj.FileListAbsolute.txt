@@ -1,0 +1,12 @@
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\bin\Debug\net6.0\InventoryManagement.Entities.deps.json
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\bin\Debug\net6.0\InventoryManagement.Entities.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\bin\Debug\net6.0\ref\InventoryManagement.Entities.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\bin\Debug\net6.0\InventoryManagement.Entities.pdb
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.csproj.AssemblyReference.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.AssemblyInfoInputs.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.AssemblyInfo.cs
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.csproj.CoreCompileInputs.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\ref\InventoryManagement.Entities.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Entities\obj\Debug\net6.0\InventoryManagement.Entities.pdb

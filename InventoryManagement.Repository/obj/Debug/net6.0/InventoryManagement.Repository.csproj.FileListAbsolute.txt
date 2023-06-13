@@ -1,0 +1,15 @@
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.csproj.AssemblyReference.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.AssemblyInfoInputs.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.AssemblyInfo.cs
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\InventoryManagement.Repository.deps.json
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\InventoryManagement.Repository.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\ref\InventoryManagement.Repository.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\InventoryManagement.Repository.pdb
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\InventoryManagement.Entities.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\bin\Debug\net6.0\InventoryManagement.Entities.pdb
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.csproj.CopyComplete
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\ref\InventoryManagement.Repository.dll
+C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement.Repository\obj\Debug\net6.0\InventoryManagement.Repository.pdb

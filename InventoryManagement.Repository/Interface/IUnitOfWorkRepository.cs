@@ -9,13 +9,10 @@ namespace InventoryManagement.Repository.Interface
 {
     public interface IUnitOfWorkRepository
     {
-        public ICountryRepositoy Country { get; }
-        public IStudentDetailsRepository StudentDetails { get; }
-
-        public IStateRepository State { get; }
-
-        public ICityRepository City { get; }
-
+      
+        public IinventoryItemsRepository InventoryItems { get; }
         public ICategoryRepository Category { get; }
+
+/*        public IDataAccessRepository DataAccess { get; }*/
     }
 }

@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace InventoryManagement.Repository.Interface
 {
-    public interface ICityRepository
+    public interface IinventoryItemsRepository
     {
-        public IEnumerable<City> GetCitiesByState(long stateId);
+        Task<IEnumerable<InventoryItems>> GetInventoryItems();
+        Task<bool> AddOrUpdateItem(IncomeViewModel model);
+
+        Task<string> GetInventoryItemById(long itemId);
     }
 }

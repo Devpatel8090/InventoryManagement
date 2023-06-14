@@ -1,7 +1,7 @@
 ﻿using InventoryManagement.Entities.Model;
 using InventoryManagement.Repository.Interface;
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,17 +16,27 @@ namespace InventoryManagement.Repository.Repository
     public class CategoryRepository : ICategoryRepository
     {
 
-        private readonly string _connectionString;
-
-        public CategoryRepository(string connectionString)
+        /*private readonly string _connectionString;
+        
+        public CityRepository(string connectionString)
         {
-            _connectionString = connectionString;
+             _connectionString = connectionString;
+        }*/
+
+
+        private readonly IDataAccessRepository _dataAccess;
+
+        public CategoryRepository(IDataAccessRepository dataAccess)
+        {
+
+            _dataAccess = dataAccess;
         }
 
         public IEnumerable<Category> GetCategories()
         {
-            
-            using (var connection = new SqlConnection(_connectionString))
+
+            /*using (var connection = new SqlConnection(_connectionString))*/
+            using (var connection = _dataAccess.CreateConnection())
             {
                 connection.Open();
 
@@ -70,14 +80,13 @@ namespace InventoryManagement.Repository.Repository
 
         public int AddOrUpdateCategories(IncomeViewModel model)
         {
-
-            
-            using (var connection = new SqlConnection(_connectionString))
+            /*using (var connection = new SqlConnection(_connectionString))*/
+            using (var connection = _dataAccess.CreateConnection())
             {
                 connection.Open();
                 try
                 {
-                    if(model.Category.CategoryId == 0)
+                    if (model.Category.CategoryId == 0)
                     {
                         SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_AddCategories", connection);
                         command.CommandType = CommandType.StoredProcedure;
@@ -97,13 +106,12 @@ namespace InventoryManagement.Repository.Repository
                         var data = command.ExecuteNonQuery();
                         return data;
                     }
-
-                    
                 }
                 catch (Exception e)
                 {
+
                     Console.WriteLine("Error => ", e.Message);
-                    return 0;
+                    return -1;
                 }
                 finally
                 {
@@ -111,42 +119,34 @@ namespace InventoryManagement.Repository.Repository
                     {
                         connection.Close();
                     }
-
-
                 }
-
             }
 
 
         }
         public string EditCategory(long categoryId)
         {
-            
-            using (var connection = new SqlConnection(_connectionString))
+            /*using (var connection = new SqlConnection(_connectionString))*/
+            using (var connection = _dataAccess.CreateConnection())
             {
                 connection.Open();
                 try
                 {
                     SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_GetCategoryById", connection);
-                    command.CommandType=CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("categoryId",categoryId);
-
-
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("categoryId", categoryId);
                     SqlDataReader reader = command.ExecuteReader();
                     Category category = null;
+
                     while (reader.Read())
                     {
                         category = new Category();
                         category.CategoryName = reader["CategoryName"].ToString();
                         category.Description = reader["Description"].ToString();
                         category.CategoryId = Convert.ToInt32(reader["CategoryId"]);
-                        /*city.CityName = Convert.ToString(reader["CityName"]);*/
-                       
-                    }
-                    
-                    return Newtonsoft.Json.JsonConvert.SerializeObject(category);
-                    /*return new JsonResult()*/
 
+                    }
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(category);
                 }
                 catch (Exception e)
                 {
@@ -159,14 +159,69 @@ namespace InventoryManagement.Repository.Repository
                     {
                         connection.Close();
                     }
-
-
                 }
-
             }
-
         }
 
+
+        public int DeleteCategory(long categoryId)
+        {
+            /*using (var connection = new SqlConnection(_connectionString))*/
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_DeleteCategoryById", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("categoryId", categoryId);
+                    var affectedRows = command.ExecuteNonQuery();
+                    return affectedRows;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return 0;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        public async Task<IEnumerable<Category>> SearchCategory(string searchString)
+        {
+            /*var string = */
+            /* using (var connection = _dataAccess.CreateConnection())
+             {
+                 connection.Open();*/
+            try
+            {
+                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                return categories;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error => ", e.Message);
+                return null;
+
+            }
+            /* finally
+             {
+                 if (connection != null && connection.State == ConnectionState.Open)
+                 {
+                     connection.Close();
+                 }
+             }
+         }*/
+
+
+        }
 
     }
 }

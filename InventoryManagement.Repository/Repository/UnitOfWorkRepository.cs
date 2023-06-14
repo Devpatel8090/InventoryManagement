@@ -15,26 +15,28 @@ namespace InventoryManagement.Repository.Repository
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
+        private readonly IDataAccessRepository _dataAccess;
        
-        public UnitOfWorkRepository(IConfiguration configuration)
+        public UnitOfWorkRepository(IConfiguration configuration,IDataAccessRepository dataAccess)
         {  
             _configuration = configuration;
-            _connectionString = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            StudentDetails =  new StudentDetailsRepository(_connectionString); 
-            Country = new CountryRepository(_connectionString);
-            State = new StateRepository(_connectionString);
-            City = new CityRepository(_connectionString);
-            Category = new CategoryRepository(_connectionString);
+            _dataAccess = dataAccess;
+            /*_connectionString = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;*/
+            
+           
+            Category = new CategoryRepository(_dataAccess);
+            InventoryItems = new InventoryItemsRepository(_dataAccess);
+            /*DataAccess = new DataAccessRepository(_connectionString);*/
         }
 
         /*public SqlConnection CreateConnection() => new SqlConnection(_connectionString);*/
-        public ICountryRepositoy Country { get; private set; }
-        public IStudentDetailsRepository StudentDetails { get; private set; }
 
-        public IStateRepository State { get; private set; }
+        public IinventoryItemsRepository InventoryItems { get; private set; }
 
-        public ICityRepository City { get; private set; }
+        public IDataAccessRepository DataAccess { get; private set; }
+        
 
+       
         public ICategoryRepository Category { get; private set; }
 
 

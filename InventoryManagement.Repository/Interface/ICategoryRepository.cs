@@ -14,6 +14,8 @@ namespace InventoryManagement.Repository.Interface
         public int AddOrUpdateCategories(IncomeViewModel model);
 
         public string EditCategory(long categoryId);
+        public int DeleteCategory(long categoryId);
+         Task<IEnumerable<Category>> SearchCategory(string searchString);
 
 
     }

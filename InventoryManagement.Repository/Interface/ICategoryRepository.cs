@@ -17,6 +17,8 @@ namespace InventoryManagement.Repository.Interface
         public int DeleteCategory(long categoryId);
          Task<IEnumerable<Category>> SearchCategory(string searchString);
 
+         Task<IEnumerable<Category>> CategoryPagination(long pageNo);
+
 
     }
 }

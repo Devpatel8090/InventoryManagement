@@ -12,6 +12,7 @@ namespace InventoryManagement.Repository.Interface
       
         public IinventoryItemsRepository InventoryItems { get; }
         public ICategoryRepository Category { get; }
+        public IInventoryItemsPricesRepository InventoryItemsPricies { get; }
 
 /*        public IDataAccessRepository DataAccess { get; }*/
     }

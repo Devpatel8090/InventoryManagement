@@ -11,21 +11,20 @@ using System.Threading.Tasks;
 
 namespace InventoryManagement.Repository.Repository
 {
-    public class UnitOfWorkRepository: IUnitOfWorkRepository
+    public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
         private readonly IDataAccessRepository _dataAccess;
-       
-        public UnitOfWorkRepository(IConfiguration configuration,IDataAccessRepository dataAccess)
-        {  
+
+        public UnitOfWorkRepository(IConfiguration configuration, IDataAccessRepository dataAccess)
+        {
             _configuration = configuration;
             _dataAccess = dataAccess;
-            /*_connectionString = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;*/
-            
-           
+
             Category = new CategoryRepository(_dataAccess);
             InventoryItems = new InventoryItemsRepository(_dataAccess);
+            InventoryItemsPricies = new InventoryItemsPricesRepository(_dataAccess);
             /*DataAccess = new DataAccessRepository(_connectionString);*/
         }
 
@@ -34,10 +33,11 @@ namespace InventoryManagement.Repository.Repository
         public IinventoryItemsRepository InventoryItems { get; private set; }
 
         public IDataAccessRepository DataAccess { get; private set; }
-        
 
-       
+
+
         public ICategoryRepository Category { get; private set; }
+        public IInventoryItemsPricesRepository InventoryItemsPricies {  get; private set;}
 
 
 

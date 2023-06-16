@@ -13,5 +13,7 @@ namespace InventoryManagement.Repository.Interface
         Task<bool> AddOrUpdateItem(IncomeViewModel model);
 
         Task<string> GetInventoryItemById(long itemId);
+
+        Task<IEnumerable<InventoryItems>> DeleteItem(long itemId);
     }
 }

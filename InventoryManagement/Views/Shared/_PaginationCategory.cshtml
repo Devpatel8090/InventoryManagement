@@ -1,0 +1,29 @@
+﻿@using InventoryManagement.Entities.Model
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IncomeViewModel
+
+<nav aria-label="Page navigation example" id="Pagination">
+    <ul class="pagination d-flex justify-content-center mt-3">
+        @*<li class="page-item" style="cursor:pointer">
+            <a class="page-link curser-pointer" aria-label="Previous" onclick="PreviousPage()" style="cursor:pointer">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>*@
+        @for (var i = 0; i <= (Model.Categories.Count() / 3); i++)
+        {
+            <li class="page-item" style="cursor:pointer"><a class="page-link  curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddPagination()">@(i+1)</a></li>
+        }
+
+        @*
+            <li class="page-item" style="cursor:pointer">
+            <a class="page-link curser-pointer" aria-label="Next" onclick="NextPointer()" style="cursor:pointer">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>*@
+
+    </ul>
+</nav>

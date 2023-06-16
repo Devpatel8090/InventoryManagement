@@ -202,6 +202,7 @@ namespace InventoryManagement.Repository.Repository
             try
             {
                 var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                
                 return categories;
 
             }
@@ -221,6 +222,22 @@ namespace InventoryManagement.Repository.Repository
          }*/
 
 
+        }
+
+        public async Task<IEnumerable<Category>> CategoryPagination(long pageNo)
+        {
+            try
+            {
+                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_Pagination", new { pageNo });
+                return categories;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error => ", e.Message);
+                return null;
+
+            }
+            
         }
 
     }

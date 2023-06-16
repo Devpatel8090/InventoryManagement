@@ -42,7 +42,15 @@ namespace InventoryManagement.Repository.Repository
         {
             if (model.InventoryItem.ItemId > 0)
             {
-                return false;
+                try
+                {
+                    await _dataAccess.SaveData("[dbo].sp_INVItems_AddOrUpdateItems", new {model.InventoryItem.ItemId, model.InventoryItem.ItemName, model.InventoryItem.Description, model.InventoryItem.CategoryId, model.InventoryItem.IsActive });
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
             }
             else
             {
@@ -56,7 +64,7 @@ namespace InventoryManagement.Repository.Repository
                     return false;
                 }
 
-
+               
 
             }
         }
@@ -74,6 +82,38 @@ namespace InventoryManagement.Repository.Repository
                 return null;
             }
 
+        }
+
+        
+
+        public async Task<IEnumerable<InventoryItems>> DeleteItem(long itemId)
+        {
+            try
+            {
+                var isDeleted = false;
+                if(itemId > 0)
+                {
+                    await _dataAccess.SaveData<dynamic>("[dbo].sp_INVItems_DeleteItemById", new { itemId });
+                    isDeleted = true;
+                }
+                if(isDeleted)
+                {
+                    var items = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_GetAllInventoryItems", new { });
+                    return items;
+                }
+                else
+                {
+                    return null;
+                }
+                
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error => ", e.Message);
+                return null;
+
+            }
         }
 
 

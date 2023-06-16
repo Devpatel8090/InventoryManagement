@@ -20,8 +20,9 @@ namespace RegistrationDemo.Controllers
         {
             IncomeViewModel model = new IncomeViewModel
             {
-                Categories = _unitOfWork.Category.GetCategories(),
-                InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems()
+                Categories = await _unitOfWork.Category.CategoryPagination(1),
+                InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems(),
+                InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.GetAllPrices(),
             };
 
             return View(model);
@@ -94,8 +95,10 @@ namespace RegistrationDemo.Controllers
         {
             if (searchText == null)
             {
-                TempData["error"] = "Please Type search string in search box";
-                return null;
+
+                IncomeViewModel incomeViewModel = new IncomeViewModel();
+                incomeViewModel.Categories = _unitOfWork.Category.GetCategories();
+                return PartialView("_CategoryModal", incomeViewModel);
 
             }
             else
@@ -117,13 +120,24 @@ namespace RegistrationDemo.Controllers
             }
         }
 
+        public async Task<IActionResult> CategoryPagination(long Pagevalue)
+        {
+
+
+            IncomeViewModel incomeViewModel = new IncomeViewModel();
+            incomeViewModel.Categories = await _unitOfWork.Category.CategoryPagination(Pagevalue);
+
+            return PartialView("_CategoryModal", incomeViewModel);
+
+        }
+
         public async Task<IActionResult> AddInventoryItem(IncomeViewModel model)
         {
 
             var IsDone = await _unitOfWork.InventoryItems.AddOrUpdateItem(model);
             if (IsDone)
             {
-                TempData["success"] = "Item Added  Successfully";
+                TempData["success"] = "process completed  Successfully";
                 return RedirectToAction("Income");
             }
             else
@@ -148,6 +162,107 @@ namespace RegistrationDemo.Controllers
                 var items = await _unitOfWork.InventoryItems.GetInventoryItemById(itemId);
                 return items;
             }
+        }
+        public async Task<IActionResult> DeleteInventoryItem(long itemId)
+        {
+            if (itemId == 0)
+            {
+                TempData["error"] = "sorry!!!";
+
+                return null;
+            }
+            else
+            {
+                var remainingRows = await _unitOfWork.InventoryItems.DeleteItem(itemId);
+                if (remainingRows != null)
+                {
+
+                    TempData["success"] = "Deleted Successfully";
+                    IncomeViewModel incomeViewModel = new IncomeViewModel();
+                    incomeViewModel.InventoryItems = remainingRows;
+                    return PartialView("_InventoryItemsModal", incomeViewModel);
+                }
+                else
+                {
+                    TempData["error"] = "sorry!!!";
+                    return null;
+                }
+
+
+            }
+
+        }
+
+
+
+        //              InventoryItemsPrices 
+
+
+        public async Task<IActionResult> AddInventoryItemsPrice(IncomeViewModel model)
+        {
+            var IsDone = await _unitOfWork.InventoryItemsPricies.AddOrUpdateItemPrice(model);
+            if (IsDone)
+            {
+                TempData["success"] = "process completed  Successfully";
+                return RedirectToAction("Income");
+            }
+            else
+            {
+                TempData["error"] = "Oh No! Please Try Again with Different ItemName";
+                return RedirectToAction("Income");
+
+            }
+
+        }
+        public async Task<string> EditPrice(long priceId)
+        {
+            if (priceId == 0)
+            {
+                TempData["error"] = "sorry!!!";
+                return null;
+            }
+            else
+            {
+                var items = await _unitOfWork.InventoryItemsPricies.GetInventoryItemPriceById(priceId);
+                return items;
+            }
+
+        }
+
+        public async Task<IActionResult> DeleteInventoryItemPrice(long priceId)
+        {
+            if (priceId == 0)
+            {
+                TempData["error"] = "sorry!!!";
+                return null;
+            }
+            else
+            {
+                var remainingRows = await _unitOfWork.InventoryItemsPricies.DeleteItemPrice(priceId);
+                if (remainingRows != null)
+                {
+
+                    TempData["success"] = "Deleted Successfully";
+                    IncomeViewModel incomeViewModel = new IncomeViewModel();
+                    incomeViewModel.InventoryItemsPricies = remainingRows;
+                    return PartialView("_PricingItemsModal", incomeViewModel);
+                }
+                else
+                {
+                    TempData["error"] = "sorry!!!";
+                    return null;
+                }
+
+
+            }
+
+
+
+        }
+        public async Task<string> GetPriceByItemId(long itemId)
+        {
+            var items = await _unitOfWork.InventoryItemsPricies.GetPriceByItemId(itemId);
+            return items;
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@using InventoryManagement.Entities.Model
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IncomeViewModel
+
+
+@foreach (var item in @Model.InventoryItemsPricies)
+{
+    
+    <tr value="@item.PriceId" id="InventoryItemPriceRow_@item.PriceId" onclick="selectInventoryItemPrice()">
+        <td value="@item.PriceId">
+            @item.ItemName
+        </td>
+        
+        <td value="@item.PriceId">
+            @item.Price
+        </td>
+
+    </tr>
+
+}

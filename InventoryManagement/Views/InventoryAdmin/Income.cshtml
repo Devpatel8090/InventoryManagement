@@ -17,7 +17,7 @@
         <h3 class="border-bottom border-4 border-dark">Income</h3>
     </div>
     <div class="d-flex flex-row align-items-center justify-content-start gap-3">
-        <div class="d-flex flex-column align-items-center justify-content-start" data-bs-toggle="modal" data-bs-target="#InventoryModel">
+        <div class="d-flex flex-column align-items-center justify-content-start" id="inventoryTab" data-bs-toggle="modal" data-bs-target="#InventoryModel">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-tag" viewBox="0 0 16 16">
                 <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
                 <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
@@ -26,15 +26,15 @@
                 Inventory
             </span>
         </div>
-        <div class="d-flex flex-column align-items-center justify-content-start">
+        <div class="d-flex flex-column align-items-center justify-content-start" data-bs-toggle="modal" data-bs-target="#InventoryItemsPricingModal">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
             </svg>
             <span>
-                Employee
+                Pricing
             </span>
         </div>
-        <div class="d-flex flex-column align-items-center justify-content-start" data-bs-toggle="modal" data-bs-target="#CategoryModal">
+        <div class="d-flex flex-column align-items-center justify-content-start" id="categoryTab" data-bs-toggle="modal" data-bs-target="#CategoryModal">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z" />
                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
@@ -52,22 +52,406 @@
 </div>
 
 
-<!-- Category Modal -->
+<!------------------------------------           Category Modal      -------------------------------------->
+@*<div id="CategoryModelView">
 
-
-<div id="CategoryModelView">
     <partial name="_CategoryModal" model="@Model"/>
+    </div>*@
+
+
+<div class="modal fade" id="CategoryModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Inventory Categories</h5>
+                <button type="button" id="closeCategoryButton" class="btn-close closeCategoryButton" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                @*Add , delete , update and search *@
+
+                <div class="d-flex flex-row gap-2 align-items-center">
+                    <div class="" id="addButton" data-bs-target="#CategoryAddModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
+                        </svg>
+                        <span>Add</span>
+                    </div>
+                    <div class=" " onclick="EditCategory()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                        </svg>
+                        <span>Edit</span>
+                    </div>
+                    <div class=" " onclick="DeleteCategory()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                        </svg>
+                        <span>Delete</span>
+                    </div>
+                    <div>
+                        <input type="text" id="searchInput" />
+                        <button onclick="SearchCategory()" class="border-0 bg-transparent">Search</button>
+                    </div>
+                </div>
+
+                @* Category Table*@
+
+                <table class="table mt-3">
+
+                    <thead>
+                        <tr>
+                            <td>
+                                NAME
+                            </td>
+                            <td>
+
+                                CATEGORY
+                            </td>
+
+                        </tr>
+
+
+                    </thead>
+
+                    <tbody id="CategoryModelView">
+
+                        <partial name="_CategoryModal" model="@Model" />
+                    </tbody>
+                </table>
+                @{
+                    var total = @Model.Categories.Count();
+                }
+
+                @*  Category Pagination *@
+
+                <div>
+                    <partial name="_PaginationCategory" model="@Model" />
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@* Add or update Category Model*@
+
+<div class="modal fade" id="CategoryAddModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <form asp-action="AddCategory" asp-controller="InventoryAdmin">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add or Update Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input asp-for="@Model.Category.CategoryId" type="text" id="CategoryId" hidden />
+                    <div class="form-floating mb-3">
+                        <input asp-for="@Model.Category.CategoryName" type="text" class="form-control" id="CategoryName">
+                        <label for="floatingInput">Category</label>
+                        <span asp-validation-for="@Model.Category.CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating">
+                        <textarea asp-for="@Model.Category.Description" class="form-control" id="CategoryDescription"></textarea>
+                        <span asp-validation-for="@Model.Category.Description" class="text-danger"></span>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn bg__colour" type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
-<!-- inventory model-->
 
-<div id="CategoryModelView">
-    <partial name="_InventoryItemsModal" model="@Model"/>
+
+<!-----------------------------         inventory model  ---------------------------------------------->
+@*<div id="InventoryItemModelView">
+    <partial name="_InventoryItemsModal" model="@Model" />
+    </div>*@
+
+<div class="modal fade" id="InventoryModel" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Inventory Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                @*Add , delete , update and search *@
+                <div class="d-flex flex-row gap-2 align-items-center">
+                    <div class="" id="addButton" data-bs-target="#InventoryAddModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
+                        </svg>
+                        <span>Add</span>
+                    </div>
+                    <div class=" " onclick="EditItemPrice()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                        </svg>
+                        <span>Edit</span>
+                    </div>
+                    <div class=" " onclick="DeleteItemPrice()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                        </svg>
+                        <span>Delete</span>
+                    </div>
+                    <div>
+                        <input type="text" id="searchInput" />
+                        <button onclick="SearchCategory()" class="border-0 bg-transparent">Search</button>
+                    </div>
+                </div>
+
+                @*   InventoryItems Table*@
+                <table class="table mt-3">
+
+                    <thead>
+                        <tr>
+                            <td>
+                                ItemName
+                            </td>
+                            <td>
+                                ItemDescription
+                            </td>
+                            <td>
+                                ItemCategory
+                            </td>
+
+                        </tr>
+
+
+                    </thead>
+                    <tbody id="InventoryItemModelView">
+
+                        <partial name="_InventoryItemsModal" model="@Model" />
+                    </tbody>
+
+
+                </table>
+
+                @*     InventoryItems Pagination*@
+                <div>
+                    <nav aria-label="Page navigation example" id="Pagination">
+                        <ul class="pagination d-flex justify-content-center mt-3">
+                            @* <li class="page-item" style="cursor:pointer">
+                                <a class="page-link curser-pointer" aria-label="Previous" onclick="PreviousPage()" style="cursor:pointer">
+                                <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>*@
+                            @for (var i = 0; i <= (Model.InventoryItems.Count() / 3); i++)
+                            {
+                                <li class="page-item" style="cursor:pointer"><a class="page-link  curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddPagination()">@(i+1)</a></li>
+                            }
+
+                            @*
+                                <li class="page-item" style="cursor:pointer">
+                                <a class="page-link curser-pointer" aria-label="Next" onclick="NextPointer()" style="cursor:pointer">
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>*@
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*Add or Update InventoryItem Modal*@
+
+<div class="modal fade" id="InventoryAddModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <form asp-action="AddInventoryItem" asp-controller="InventoryAdmin">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add or Update InventoryItems</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input asp-for="@Model.InventoryItem.ItemId" type="text" id="itemId" hidden />
+                    <div class="form-floating mb-3">
+                        <input asp-for="@Model.InventoryItem.ItemName" type="text" class="form-control" id="itemName">
+                        <label for="floatingInput">ItemName</label>
+                        <span asp-validation-for="@Model.InventoryItem.ItemName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating">
+                        <textarea asp-for="@Model.InventoryItem.Description" class="form-control" id="itemDescription"></textarea>
+                        <span asp-validation-for="@Model.InventoryItem.Description" class="text-danger"></span>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
+                    <select class="form-select form-select-sm mt-3" asp-for="@Model.InventoryItem.CategoryId" id="ItemCategory" aria-label=".form-select-sm example">
+                        <option>Open this select menu</option>
+                        @foreach (var item in @Model.Categories)
+                        {
+                            <option value="@item.CategoryId">@item.CategoryName</option>
+                        }
+                    </select>
+                    <select asp-for="@Model.InventoryItem.IsActive" class="form-select form-select-sm mt-3" id="ItemActive" aria-label=".form-select-sm example">
+
+                        <option value="true">Active</option>
+                        <option value="false">InActive</option>
+                    </select>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn bg__colour" type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
 
+<!---------------------------------------        pricing model      ------------------------------------->
+@*<div id="PricingItemModelView">
+    <partial name="_PricingItemsModal" model="@Model" />
+    </div>*@
+
+
+<div class="modal fade" id="InventoryItemsPricingModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel"> InvenoryItems Prices</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                @*Add , delete , update and search *@
+
+                <div class="d-flex flex-row gap-2 align-items-center">
+                    <div class="" id="addButton" data-bs-target="#InventoryItemsPricingAddModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
+                        </svg>
+                        <span>Add</span>
+                    </div>
+                    <div class=" " onclick="EditItemPrice()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                        </svg>
+                        <span>Edit</span>
+                    </div>
+                    <div class=" " onclick="DeleteItemPrice()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                        </svg>
+                        <span>Delete</span>
+                    </div>
+                    <div>
+                        <input type="text" id="searchInput" />
+                        <button onclick="SearchCategory()" class="border-0 bg-transparent">Search</button>
+                    </div>
+                </div>
+
+                @* ItemPrices Table*@
+                <table class="table mt-3">
+
+                    <thead>
+                        <tr>
+                            <td>
+                                ItemName
+                            </td>
+                            
+                            <td>
+                                ItemPrice
+                            </td>
+
+                        </tr>
+
+
+                    </thead>
+
+                    <tbody id="PricingItemModelView">
+
+                        <partial name="_PricingItemsModal" model="@Model" />
+                    </tbody>
+                </table>
+
+                @* InventoryItems Price Pagination*@
+                <div>
+                    <nav aria-label="Page navigation example" id="Pagination">
+                        <ul class="pagination d-flex justify-content-center mt-3">
+                            @* <li class="page-item" style="cursor:pointer">
+                                <a class="page-link curser-pointer" aria-label="Previous" onclick="PreviousPage()" style="cursor:pointer">
+                                <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>*@
+                            @for (var i = 0; i <= (Model.InventoryItemsPricies.Count() / 3); i++)
+                            {
+                                <li class="page-item" style="cursor:pointer"><a class="page-link  curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddPagination()">@(i+1)</a></li>
+                            }
+
+
+                            @* <li class="page-item" style="cursor:pointer">
+                                <a class="page-link curser-pointer" aria-label="Next" onclick="NextPointer()" style="cursor:pointer">
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>*@
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*Add or Update InventoryPrice Modal*@
+
+<div class="modal fade" id="InventoryItemsPricingAddModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <form asp-action="AddInventoryItemsPrice" asp-controller="InventoryAdmin">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add or Update ItemPrice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input asp-for="@Model.InventoryItemPrice.PriceId" type="text" id="PriceId" hidden />
+                    
+                    
+
+                    <select class="form-select form-select-sm mt-3" asp-for="@Model.InventoryItemPrice.ItemId" id="ItemIdOfInventoryPrice" onchange="GetPriceOfSelectedItem()" aria-label=".form-select-sm example">
+                        <option>Open this select menu</option>
+                        @foreach (var item in @Model.InventoryItems)
+                        {
+                            <option value="@item.ItemId">@item.ItemName</option>
+                        }
+                    </select>
+                    
+                    
+                    <div class="form-floating mt-3">
+                        <input asp-for="@Model.InventoryItemPrice.Price" type="text" class="form-control" id="ItemPrice">
+                        <label for="floatingInput">Price</label>
+                        <span asp-validation-for="@Model.InventoryItemPrice.Price" class="text-danger"></span>
+                    </div>
+                    
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn bg__colour" type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

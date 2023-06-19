@@ -12,6 +12,10 @@ namespace InventoryManagement.Entities.Model
         public IEnumerable<Category> Categories { get; set; }  = Enumerable.Empty<Category>();
 
         public InventoryItems InventoryItem { get; set; }
+
+        public int TotalCategories { get; set; }
+        public int TotalInventoryItems { get; set; }
+        public int TotalInventoryItemsPrices { get; set; }
         public IEnumerable<InventoryItems> InventoryItems { get; set; }
 
         public IEnumerable<InventoryItemsPrices> InventoryItemsPricies { get; set; }

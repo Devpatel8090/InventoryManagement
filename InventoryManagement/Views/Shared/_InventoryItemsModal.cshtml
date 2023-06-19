@@ -6,24 +6,29 @@
 
 @model IncomeViewModel
 
+@{
 
-<tbody>
 
-    @foreach (var item in @Model.InventoryItems)
-    {
-        <tr value="@item.ItemId" id="InventoryRow_@item.ItemId" onclick="selectInventoryItem()">
-            <td value="@item.ItemId">
-                @item.ItemName
+     var collection = @Model.InventoryItems;
+    var totalCount = @Model.InventoryItems.Count();
+    for (int item = 0; item <= (@collection.Count() - 1); item++)
+      {
+        <tr value="@collection.ElementAt(item).ItemId" id="InventoryRow_@collection.ElementAt(item).ItemId" onclick="selectInventoryItem()">
+            <td value="@collection.ElementAt(item).ItemId">
+                @collection.ElementAt(item).ItemName
             </td>
-            <td value="@item.ItemId">
-                @item.Description
+            <td value="@collection.ElementAt(item).ItemId">
+                @collection.ElementAt(item).Description
             </td>
-            <td value="@item.ItemId">
-                @item.CategoryName
+            <td value="@collection.ElementAt(item).ItemId">
+                @collection.ElementAt(item).CategoryName
             </td>
 
         </tr>
 
     }
+}
 
-</tbody>
+
+   
+  

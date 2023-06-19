@@ -2,8 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+
 
 @model IncomeViewModel
 
@@ -11,20 +10,74 @@
 
 
 
-    @foreach (var item in @Model.Categories)
-    {
+@*@foreach (var item in @Model.Categories)*@
+@{
+
+    //for (var i = 0; i <  (totalCount/3); i++)
+    //{
+    //    <tr value="@collection.ElementAt(i).CategoryId" id="CategoryRow_@collection.ElementAt(i).CategoryId" onclick="selectCategory()">
+    //        <td value="@collection.ElementAt(i).CategoryId">
+    //            @item.CategoryName
+    //        </td>
+    //        <td value="@item.CategoryId">
+    //            @item.Description
+    //        </td>
+
+    //    </tr>
+
+    //}
+    var collection = @Model.Categories.Take(3);
+    //var totalCount = @Model.Categories.Count() ;
+    <div>
+        <table class="table mt-3">
+
+            <thead>
+                <tr>
+                    <td>
+                        NAME
+                    </td>
+                    <td>
+
+                        CATEGORY
+                    </td>
+
+                </tr>
 
 
-        <tr value="@item.CategoryId" id="CategoryRow_@item.CategoryId" onclick="selectCategory()">
-            <td value="@item.CategoryId">
-                @item.CategoryName
-            </td>
-            <td value="@item.CategoryId">
-                @item.Description
-            </td>
+            </thead>
+            @for (int item = 0; item <= (@collection.Count() - 1); item++)
+            {
+                <tr value="@collection.ElementAt(item).CategoryId" id="CategoryRow_@collection.ElementAt(item).CategoryId" onclick="selectCategory()">
+                    <td value="@collection.ElementAt(item).CategoryId">
+                        @collection.ElementAt(item).CategoryName
+                    </td>
+                    <td value="@collection.ElementAt(item).CategoryId">
+                        @collection.ElementAt(item).Description
+                    </td>
 
-        </tr>
+                </tr>
+
+            }
+        </table>
+    </div>
+    //<div>
+    //    <partial name="_PaginationCategory" model="@Model" />
+    //</div>
 
 
-    }
+
+
+
+
+
+
+
+}
+
+
+
+
+@{
+
+}
 

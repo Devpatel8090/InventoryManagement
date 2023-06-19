@@ -202,7 +202,7 @@ namespace InventoryManagement.Repository.Repository
             try
             {
                 var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                
+
                 return categories;
 
             }
@@ -225,19 +225,47 @@ namespace InventoryManagement.Repository.Repository
         }
 
         public async Task<IEnumerable<Category>> CategoryPagination(long pageNo)
+            {
+                try
+                {
+                    var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_Pagination", new { pageNo });
+                    return categories;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+
+                }
+
+            }
+
+            public async Task<IEnumerable<Category>> SearchCategoryWithPagination(string searchString,int pageNo = 1,int pageSize = 3)
         {
+           
             try
             {
-                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_Pagination", new { pageNo });
+                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearchWithPagination", new { searchString,pageNo,pageSize });
+
                 return categories;
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error => ", e.Message);
                 return null;
 
             }
-            
+            /* finally
+             {
+                 if (connection != null && connection.State == ConnectionState.Open)
+                 {
+                     connection.Close();
+                 }
+             }
+         }*/
+
+
         }
 
     }

@@ -20,9 +20,11 @@ namespace RegistrationDemo.Controllers
         {
             IncomeViewModel model = new IncomeViewModel
             {
-                Categories = await _unitOfWork.Category.CategoryPagination(1),
+                Categories =  _unitOfWork.Category.GetCategories(),
                 InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems(),
                 InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.GetAllPrices(),
+                //TotalCategories = _unitOfWork.Category.GetCategories().Count(),
+                //TotalInventoryItems = 
             };
 
             return View(model);
@@ -113,6 +115,7 @@ namespace RegistrationDemo.Controllers
                 IncomeViewModel incomeViewModel = new IncomeViewModel();
                 incomeViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
 
+
                 return PartialView("_CategoryModal", incomeViewModel);
 
 
@@ -120,12 +123,21 @@ namespace RegistrationDemo.Controllers
             }
         }
 
-        public async Task<IActionResult> CategoryPagination(long Pagevalue)
+        public async Task<IActionResult> CategoryPagination(long pageNo)
+        {
+            IncomeViewModel incomeViewModel = new IncomeViewModel();
+            incomeViewModel.Categories = await _unitOfWork.Category.CategoryPagination(pageNo);
+
+            return PartialView("_CategoryModal", incomeViewModel);
+
+        }
+
+        public async Task<IActionResult> SearchCategoryWithPagination(string searchText,int pageSize = 3,int pageNo = 1)
         {
 
-
+           
             IncomeViewModel incomeViewModel = new IncomeViewModel();
-            incomeViewModel.Categories = await _unitOfWork.Category.CategoryPagination(Pagevalue);
+            incomeViewModel.Categories = await _unitOfWork.Category.SearchCategoryWithPagination(searchText,pageNo,pageSize);
 
             return PartialView("_CategoryModal", incomeViewModel);
 

@@ -67,6 +67,7 @@ function SearchCategory() {
 
             $('#CategoryModelView').html(data);
             $('#searchInput').val(searchText);
+            
             /* windows.location.reload();*/
            /* $('.closeCategoryButton').click();*/
           /*  $('#categoryTab').click();*/
@@ -104,10 +105,12 @@ function SearchCategory() {
 
 function AddPagination() {
     var Pagevalue = event.target.innerHTML;
-   /* $('.closeCategoryButton').click();*/
+    /* $('.closeCategoryButton').click();*/
+
+
    
     $.ajax({
-        url: "/InventoryAdmin/CategoryPagination?Pagevalue=" + Pagevalue,
+        url: "/InventoryAdmin/CategoryPagination?pageNo=" + Pagevalue,
         type:"GET",
         success: function (data) {
             console.log(data);
@@ -120,6 +123,38 @@ function AddPagination() {
             console.log(error);
         }
     });
+}
+
+
+function SearchWithPagination() {
+    var PageNo = event.target.innerHTML;
+    var  searchText = $('#searchInput').val();
+    var url;
+    if (searchText == null || searchText == undefined || searchText == '') {
+        url = "/InventoryAdmin/SearchCategoryWithPagination?pageNo=" + PageNo;
+    }
+    else if (PageNo == "Search") {
+        url = "/InventoryAdmin/SearchCategoryWithPagination?pageNo=" + 1 + "&searchText=" + searchText;
+    }
+    else {
+        url = "/InventoryAdmin/SearchCategoryWithPagination?pageNo=" + PageNo + "&searchText=" + searchText;
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            console.log(data);
+
+            $('#CategoryModelView').html(data);
+            $('#searchInput').val(searchText);
+              /*$('#categoryTab').click();*/
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
 }
 
 function PreviousPage() {
@@ -161,7 +196,8 @@ function DeleteCategory() {
 }
 
 
-////            Inventor Items
+
+////       ---------------------------------------------------     Inventor Items    ----------------------------------------------------------------------------
 
 
 
@@ -258,7 +294,7 @@ function DeleteInventoryItem() {
 
 
 
-//////            Item prices 
+//////  ------------------------------------------------------------           Item prices  -------------------------------------------------------------------------- 
 
 
 
@@ -354,6 +390,7 @@ function GetPriceOfSelectedItem() {
             console.log(obj.length)
             if (obj.length > 0) {
                 $('#ItemPrice').val(obj[0].Price);
+                $('#PriceId').val(obj[0].PriceId);
 
             }
             

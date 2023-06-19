@@ -59,7 +59,7 @@ namespace InventoryManagement.Repository.Repository
             {
                 try
                 {
-                    await _dataAccess.SaveData("[dbo].sp_INVItemsPrices_AddOrUpdateItemsPrice", new {  model.InventoryItemPrice.ItemId,  model.InventoryItemPrice.Price });
+                    await _dataAccess.SaveData("[dbo].sp_INVItemsPrices_AddOrUpdateItemsPrice", new { model.InventoryItemPrice.Price });
                     return true;
                 }
                 catch (Exception ex)

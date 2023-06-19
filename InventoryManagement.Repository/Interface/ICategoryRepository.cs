@@ -15,9 +15,11 @@ namespace InventoryManagement.Repository.Interface
 
         public string EditCategory(long categoryId);
         public int DeleteCategory(long categoryId);
-         Task<IEnumerable<Category>> SearchCategory(string searchString);
+        Task<IEnumerable<Category>> SearchCategory(string searchString);
 
-         Task<IEnumerable<Category>> CategoryPagination(long pageNo);
+        Task<IEnumerable<Category>> CategoryPagination(long pageNo);
+
+        Task<IEnumerable<Category>> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3);
 
 
     }

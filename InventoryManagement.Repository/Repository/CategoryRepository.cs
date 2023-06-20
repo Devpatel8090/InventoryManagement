@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dapper;
 
 namespace InventoryManagement.Repository.Repository
 {
@@ -32,21 +32,20 @@ namespace InventoryManagement.Repository.Repository
             _dataAccess = dataAccess;
         }
 
+
+        #region GetMethods
+
         public IEnumerable<Category> GetCategories()
         {
-
             /*using (var connection = new SqlConnection(_connectionString))*/
             using (var connection = _dataAccess.CreateConnection())
             {
                 connection.Open();
-
                 try
                 {
                     SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_GetAllCategories", connection);
                     command.CommandType = CommandType.StoredProcedure;
-
                     SqlDataReader reader = command.ExecuteReader();
-
                     List<Category> CategoryList = new List<Category>();
                     Category category = null;
 
@@ -59,9 +58,7 @@ namespace InventoryManagement.Repository.Repository
                         /*city.CityName = Convert.ToString(reader["CityName"]);*/
                         CategoryList.Add(category);
                     }
-
                     return CategoryList;
-
                 }
                 catch (Exception ex)
                 {
@@ -78,52 +75,6 @@ namespace InventoryManagement.Repository.Repository
             }
         }
 
-        public int AddOrUpdateCategories(IncomeViewModel model)
-        {
-            /*using (var connection = new SqlConnection(_connectionString))*/
-            using (var connection = _dataAccess.CreateConnection())
-            {
-                connection.Open();
-                try
-                {
-                    if (model.Category.CategoryId == 0)
-                    {
-                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_AddCategories", connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("CategoryName", model.Category.CategoryName);
-                        command.Parameters.AddWithValue("Description", model.Category.Description);
-                        var data = command.ExecuteNonQuery();
-                        return data;
-
-                    }
-                    else
-                    {
-                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_UpdateCategory", connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("categoryId", model.Category.CategoryId);
-                        command.Parameters.AddWithValue("categoryName", model.Category.CategoryName);
-                        command.Parameters.AddWithValue("description", model.Category.Description);
-                        var data = command.ExecuteNonQuery();
-                        return data;
-                    }
-                }
-                catch (Exception e)
-                {
-
-                    Console.WriteLine("Error => ", e.Message);
-                    return -1;
-                }
-                finally
-                {
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-
-
-        }
         public string EditCategory(long categoryId)
         {
             /*using (var connection = new SqlConnection(_connectionString))*/
@@ -163,6 +114,199 @@ namespace InventoryManagement.Repository.Repository
             }
         }
 
+        public async Task<IncomeViewModel> SearchCategory(string searchString)
+        {                   
+                using (var connection = _dataAccess.CreateConnection())
+                {
+                    connection.Open();
+                    try
+                    {
+                        var data = connection.QueryMultiple("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString }, commandType: CommandType.StoredProcedure);
+                        var Categories = data.Read<Category>();
+                        var TotalCategories = data.ReadFirstOrDefault().totalCount;
+                        //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                        IncomeViewModel incomeViewModel = new IncomeViewModel()
+                        {
+                            Categories = Categories,
+                            TotalCategories = TotalCategories
+
+
+                        };
+                        return incomeViewModel;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error => ", e.Message);
+                        return null;
+                    }
+                    finally
+                    {
+                        if (connection != null && connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                    }
+                }           
+      
+        }
+
+        //public async Task<IEnumerable<Category>> CategoryPagination(long pageNo)
+        //{
+        //    try
+        //    {
+        //        var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_Pagination", new { pageNo });
+        //        return categories;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("Error => ", e.Message);
+        //        return null;
+        //    }
+        //}
+
+        public async Task<IncomeViewModel> CategoryPagination(long pageNo)
+        {
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    var data = connection.QueryMultiple("[dbo].sp_INVCategory_Pagination", new { pageNo }, commandType: CommandType.StoredProcedure);
+                    var Categories = data.Read<Category>();
+                    var TotalCategories = data.ReadFirstOrDefault().totalCount;
+                    //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    {
+                        Categories = Categories,
+                        TotalCategories = TotalCategories
+                    };
+                    return incomeViewModel;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+
+        public async Task<IncomeViewModel> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3)
+        {
+            //try
+            //{
+            //    var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearchWithPagination", new { searchString, pageNo, pageSize });
+            //    return categories;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Error => ", e.Message);
+            //    return null;
+            //}
+            /* finally
+             {
+                 if (connection != null && connection.State == ConnectionState.Open)
+                 {
+                     connection.Close();
+                 }
+             }
+         }*/
+
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    var data = connection.QueryMultiple("[dbo].sp_INVCategory_GetCategoriesBySearchWithPagination", new { searchString, pageNo, pageSize }, commandType: CommandType.StoredProcedure);
+                    var Categories = data.Read<Category>();
+                    var TotalCategories = data.ReadFirstOrDefault().countofnum;
+                    //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    {
+                        Categories = Categories,
+                        TotalCategories = TotalCategories
+
+
+                    };
+
+
+                    return incomeViewModel;
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+
+        }
+
+        #endregion
+
+        #region PostMethods
+
+        public int AddOrUpdateCategories(IncomeViewModel model)
+        {
+            /*using (var connection = new SqlConnection(_connectionString))*/
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    if (model.Category.CategoryId == 0)
+                    {
+                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_AddCategories", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("CategoryName", model.Category.CategoryName);
+                        command.Parameters.AddWithValue("Description", model.Category.Description);
+                        var data = command.ExecuteNonQuery();
+                        return data;
+                    }
+                    else
+                    {
+                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_UpdateCategory", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("categoryId", model.Category.CategoryId);
+                        command.Parameters.AddWithValue("categoryName", model.Category.CategoryName);
+                        command.Parameters.AddWithValue("description", model.Category.Description);
+                        var data = command.ExecuteNonQuery();
+                        return data;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return -1;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+       
+
 
         public int DeleteCategory(long categoryId)
         {
@@ -193,80 +337,9 @@ namespace InventoryManagement.Repository.Repository
             }
         }
 
-        public async Task<IEnumerable<Category>> SearchCategory(string searchString)
-        {
-            /*var string = */
-            /* using (var connection = _dataAccess.CreateConnection())
-             {
-                 connection.Open();*/
-            try
-            {
-                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+        #endregion
 
-                return categories;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error => ", e.Message);
-                return null;
-
-            }
-            /* finally
-             {
-                 if (connection != null && connection.State == ConnectionState.Open)
-                 {
-                     connection.Close();
-                 }
-             }
-         }*/
-
-
-        }
-
-        public async Task<IEnumerable<Category>> CategoryPagination(long pageNo)
-            {
-                try
-                {
-                    var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_Pagination", new { pageNo });
-                    return categories;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error => ", e.Message);
-                    return null;
-
-                }
-
-            }
-
-            public async Task<IEnumerable<Category>> SearchCategoryWithPagination(string searchString,int pageNo = 1,int pageSize = 3)
-        {
-           
-            try
-            {
-                var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearchWithPagination", new { searchString,pageNo,pageSize });
-
-                return categories;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error => ", e.Message);
-                return null;
-
-            }
-            /* finally
-             {
-                 if (connection != null && connection.State == ConnectionState.Open)
-                 {
-                     connection.Close();
-                 }
-             }
-         }*/
-
-
-        }
+        
 
     }
 }

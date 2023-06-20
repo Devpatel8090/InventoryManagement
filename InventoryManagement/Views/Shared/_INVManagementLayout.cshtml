@@ -65,11 +65,15 @@
             <span class="text-white d-md-none ms-3 mt-5 pt-5  mb-2">Nav</span>
             <a class="nav-link text-start activeBtn ms-md-2 me-2 mb-2" id="IncomeTab" asp-action="Income" asp-controller="InventoryAdmin" type="button" role="tab" aria-controls="v-pills-home">
                 <i class="bi bi-person ms-2"></i>
-                <span class="d-md-inline d-none">Income</span>
+                <span class="d-md-inline d-none">Inventory</span>
             </a>
-            <a class="nav-link mb-2 text-start  ms-md-2 me-2" id="PayeeTab" asp-action="Payee" asp-controller="InventoryAdmin" type="button" role="tab" aria-controls="v-pills-profile">
+            <a class="nav-link mb-2 text-start  ms-md-2 me-2" id="PayeeTab" asp-action="AccountReceiveable" asp-controller="AccountReceiveable" type="button" role="tab" aria-controls="v-pills-profile">
                 <i class="bi bi-file-earmark-text"></i>
-                <span class="d-md-inline d-none">Payee</span>
+                <span class="d-md-inline d-none">Account Payable</span>
+            </a>
+            <a class="nav-link mb-2 text-start  ms-md-2 me-2" id="PayeeTab" asp-action="AccountPayable" asp-controller="AccountPayable" type="button" role="tab" aria-controls="v-pills-profile">
+                <i class="bi bi-file-earmark-text"></i>
+                <span class="d-md-inline d-none">Account Receivable</span>
             </a>
             @*   <a class="nav-link mb-2 text-start ms-md-2 me-2" id="MissionTab"  type="button" role="tab" aria-controls="v-pills-messages" >
                 <i class="bi bi-bullseye"></i>

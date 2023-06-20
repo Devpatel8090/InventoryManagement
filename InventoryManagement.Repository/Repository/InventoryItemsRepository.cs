@@ -1,7 +1,9 @@
-﻿using InventoryManagement.Entities.Model;
+﻿using Dapper;
+using InventoryManagement.Entities.Model;
 using InventoryManagement.Repository.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,7 @@ namespace InventoryManagement.Repository.Repository
         }
 
 
+        #region GetMethods 
         public async Task<IEnumerable<InventoryItems>> GetInventoryItems()
         {
             try
@@ -33,12 +36,109 @@ namespace InventoryManagement.Repository.Repository
                 Console.WriteLine("Error => ", ex.Message);
                 return null;
             }
+        }
 
+
+        public async Task<string> GetInventoryItemById(long itemId)
+        {
+            try
+            {
+                var inventoryItem = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_GetItemById", new { itemId });
+                var singleData = inventoryItem.FirstOrDefault();
+                return Newtonsoft.Json.JsonConvert.SerializeObject(singleData);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<int> GetTotalItems()
+        {
+
+
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    var count = connection.ExecuteScalar("[dbo].sp_INVItems_GetCountOfItems");
+                    return (int)count;
+                    //var count2 = _dataAccess.GetSingleValue<int>("[dbo].sp_INVItemPrices_GetCountOfItemsPricies");
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return 0;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+
+        public async Task<IncomeViewModel> SearchItems(string searchString)
+        {
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    var data = connection.QueryMultiple("[dbo].sp_INVItemPrices_GetItemPricesBySearch", new { searchString }, commandType: CommandType.StoredProcedure);
+                    var prices = data.Read<InventoryItemsPrices>();
+                    var totalPrices = data.ReadFirstOrDefault().totalCount;
+                    //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    {
+                        InventoryItemsPricies = prices,
+                        TotalInventoryItemsPrices = totalPrices
+
+
+                    };
+                    return incomeViewModel;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
 
         }
 
-        
+        public async Task<IEnumerable<InventoryItems>> ItemsPagination(long pageNo)
+        {
+            try
+            {
+                var items = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_Pagination", new { pageNo });
+                return items;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error => ", e.Message);
+                return null;
 
+            }
+        }
+
+        #endregion
+
+
+
+        #region PostMethods
 
         public async Task<bool> AddOrUpdateItem(IncomeViewModel model)
         {
@@ -46,7 +146,7 @@ namespace InventoryManagement.Repository.Repository
             {
                 try
                 {
-                    await _dataAccess.SaveData("[dbo].sp_INVItems_AddOrUpdateItems", new {model.InventoryItem.ItemId, model.InventoryItem.ItemName, model.InventoryItem.Description, model.InventoryItem.CategoryId, model.InventoryItem.IsActive });
+                    await _dataAccess.SaveData("[dbo].sp_INVItems_AddOrUpdateItems", new { model.InventoryItem.ItemId, model.InventoryItem.ItemName, model.InventoryItem.Description, model.InventoryItem.CategoryId, model.InventoryItem.IsActive });
                     return true;
                 }
                 catch (Exception ex)
@@ -65,40 +165,21 @@ namespace InventoryManagement.Repository.Repository
                 {
                     return false;
                 }
-
-               
-
             }
         }
 
-        public async Task<string> GetInventoryItemById(long itemId)
-        {
-            try
-            {
-                var inventoryItem = await _dataAccess.GetData<InventoryItems,dynamic>("[dbo].sp_INVItems_GetItemById", new { itemId });
-                var singleData = inventoryItem.FirstOrDefault();
-                return Newtonsoft.Json.JsonConvert.SerializeObject(singleData);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
-        }
-
-        
 
         public async Task<IEnumerable<InventoryItems>> DeleteItem(long itemId)
         {
             try
             {
                 var isDeleted = false;
-                if(itemId > 0)
+                if (itemId > 0)
                 {
                     await _dataAccess.SaveData<dynamic>("[dbo].sp_INVItems_DeleteItemById", new { itemId });
                     isDeleted = true;
                 }
-                if(isDeleted)
+                if (isDeleted)
                 {
                     var items = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_GetAllInventoryItems", new { });
                     return items;
@@ -107,19 +188,16 @@ namespace InventoryManagement.Repository.Repository
                 {
                     return null;
                 }
-                
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error => ", e.Message);
                 return null;
-
             }
         }
 
-
-
+        #endregion
 
     }
 

@@ -13,7 +13,10 @@ namespace InventoryManagement.Repository.Interface
         Task<string> GetInventoryItemPriceById(long priceId);
         Task<bool> AddOrUpdateItemPrice(IncomeViewModel model);
         Task<IEnumerable<InventoryItemsPrices>> DeleteItemPrice(long priceId);
+        Task<IncomeViewModel> SearchPrice(string searchString);
+         Task<int> GetTotalPrices();
 
         Task<string> GetPriceByItemId(long itemId);
+        Task<IEnumerable<InventoryItemsPrices>> ItemsPricesPagination(long pageNo);
     }
 }

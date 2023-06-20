@@ -55,6 +55,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmF0aW9uQ2F0ZWdvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Shared/_PaginationItemPrices.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmF0aW9uSXRlbVByaWNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Shared/_PaginationItems.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmF0aW9uSXRlbXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Shared/_PricingItemsModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QcmljaW5nSXRlbXNNb2RhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

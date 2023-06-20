@@ -13,9 +13,9 @@
             <span aria-hidden="true">&laquo;</span>
             </a>
             </li>*@
-        @for (var i = 0; i < Math.Ceiling((decimal)Model.Categories.Count() /(decimal)3); i++)
+        @for (var i = 0; i < Math.Ceiling((decimal)Model.TotalCategories /(decimal)3); i++)
         {
-            <li class="page-item " style="cursor:pointer"><a class="page-link bg__colour   curser-pointer" data-value="@(i)" id="currentPageNo" onclick="SearchWithPagination()">@(i+1)</a></li>
+            <li class="page-item " style="cursor:pointer"><a class="page-link bg__colour   curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddCategoryPagination()">@(i+1)</a></li>
         }
 
         @*

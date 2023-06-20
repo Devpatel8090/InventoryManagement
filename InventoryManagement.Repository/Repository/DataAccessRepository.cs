@@ -36,6 +36,17 @@ namespace InventoryManagement.Repository.Repository
            
             await _connection.ExecuteAsync(spName, parameters, commandType: CommandType.StoredProcedure);
         }
+        //public async Task<T> GetSingleValue<T, P>(string spName, P parameters)
+        //{
+        //    return (T)await _connection.ExecuteScalarAsync(spName, parameters, commandType: CommandType.StoredProcedure);
+
+        //}
+
+
+        /*  public  IEnumerable<T> MutlipleQuery<P>(string spName, P parameters)
+          {
+               _connection.QueryMultiple("[dbo].sp_INVCategory_GetCategoriesBySearch", parameters , commandType: CommandType.StoredProcedure)
+          }*/
         /*public async Task<T> GetSingleData<T, P>(string spName, P parameters)
         {
 

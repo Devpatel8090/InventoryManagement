@@ -6,29 +6,55 @@
 
 @model IncomeViewModel
 
-@{
+
+<div>
+    <table class="table mt-3">
+
+        <thead>
+            <tr>
+                <td>
+                    ItemName
+                </td>
+                <td>
+                    ItemDescription
+                </td>
+                <td>
+                    ItemCategory
+                </td>
+
+            </tr>
 
 
-     var collection = @Model.InventoryItems;
-    var totalCount = @Model.InventoryItems.Count();
-    for (int item = 0; item <= (@collection.Count() - 1); item++)
-      {
-        <tr value="@collection.ElementAt(item).ItemId" id="InventoryRow_@collection.ElementAt(item).ItemId" onclick="selectInventoryItem()">
-            <td value="@collection.ElementAt(item).ItemId">
-                @collection.ElementAt(item).ItemName
-            </td>
-            <td value="@collection.ElementAt(item).ItemId">
-                @collection.ElementAt(item).Description
-            </td>
-            <td value="@collection.ElementAt(item).ItemId">
-                @collection.ElementAt(item).CategoryName
-            </td>
+        </thead>
+        <tbody id="InventoryItemModelView">
+            @{
+                var collection = @Model.InventoryItems.Take(3);
+                var totalCount = @Model.InventoryItems.Count();
+                for(int item = 0; item <= (@collection.Count() - 1); item++)
+                {
+                    <tr value="@collection.ElementAt(item).ItemId" id="InventoryRow_@collection.ElementAt(item).ItemId" onclick="selectInventoryItem()">
+                        <td value="@collection.ElementAt(item).ItemId">
+                            @collection.ElementAt(item).ItemName
+                        </td>
+                        <td value="@collection.ElementAt(item).ItemId">
+                            @collection.ElementAt(item).Description
+                        </td>
+                        <td value="@collection.ElementAt(item).ItemId">
+                            @collection.ElementAt(item).CategoryName
+                        </td>
 
-        </tr>
+                    </tr>
 
-    }
-}
+                }
+            }
+        </tbody>
+    </table>
+</div>
 
 
-   
-  
+<div >
+    <partial name="_PaginationItems" model="@Model" />
+</div>
+
+
+

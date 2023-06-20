@@ -15,6 +15,12 @@ function selectCategory() {
 }
 
 
+function OpenAddModal() {
+    $(".UpdateModalTitle").addClass("hide");
+    $(".AddModalTitle").removeClass("hide");
+}
+
+
 
 function EditCategory() {
 
@@ -38,6 +44,8 @@ function EditCategory() {
                 $('#CategoryName').val(obj.CategoryName);
                /* $('#DateTimeMission').attr("max", data.maxDate);*/
                 $('#CategoryDescription').text(obj.Description);
+                $(".UpdateModalTitle").removeClass("hide");
+                $(".AddModalTitle").addClass("hide");
                 $('#CategoryAddModal').modal('show');
    
             },
@@ -67,6 +75,7 @@ function SearchCategory() {
 
             $('#CategoryModelView').html(data);
             $('#searchInput').val(searchText);
+            
             
             /* windows.location.reload();*/
            /* $('.closeCategoryButton').click();*/
@@ -103,7 +112,7 @@ function SearchCategory() {
 
 //}
 
-function AddPagination() {
+function AddCategoryPagination() {
     var Pagevalue = event.target.innerHTML;
     /* $('.closeCategoryButton').click();*/
 
@@ -233,6 +242,8 @@ function EditInventoryItem() {
                 $('#itemName').val(obj.ItemName);
                 /* $('#DateTimeMission').attr("max", data.maxDate);*/
                 $('#itemDescription').text(obj.Description);
+                $(".UpdateModalTitle").removeClass("hide");
+                $(".AddModalTitle").addClass("hide");
                 $('#ItemCategory').val(obj.CategoryId);
                 if (obj.IsActive == true) {
                    /* $('#ItemActive').val(1);*/
@@ -272,7 +283,7 @@ function DeleteInventoryItem() {
                 $('#InventoryItemModelView').html(data);
                 /* $('#InventoryModal').modal('toggle');*/
                 toastr.success("deleted successfully");
-                $('#InventoryModal').modal('show');
+                $('#ItemsModal').modal('show');
                 $('#inventoryTab').click();
             },
             error: function (error) {
@@ -284,11 +295,27 @@ function DeleteInventoryItem() {
 
 }
 
+function AddItemsPagination() {
+    var Pagevalue = event.target.innerHTML;
+    /* $('.closeCategoryButton').click();*/
 
 
 
+    $.ajax({
+        url: "/InventoryAdmin/ItemsPagination?pageNo=" + Pagevalue,
+        type: "GET",
+        success: function (data) {
+            console.log(data);
 
+            $('#InventoryItemModelView').html(data);
+            /*  $('#categoryTab').click();*/
 
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
 
 
 
@@ -326,14 +353,11 @@ function EditItemPrice() {
                 $('#PriceId').val(obj.PriceId);
                 $('#ItemIdOfInventoryPrice').val(obj.ItemId);
                 $('#ItemPrice').val(obj.Price);
+                $(".UpdateModalTitle").removeClass("hide");
+                $(".AddModalTitle").addClass("hide");
               
                 $('#InventoryItemsPricingAddModal').modal('show');
-                //console.log(obj.CategoryName);
-                //$('#CategoryId').val(obj.CategoryId);
-                //$('#CategoryName').val(obj.CategoryName);
-                ///* $('#DateTimeMission').attr("max", data.maxDate);*/
-                //$('#CategoryDescription').text(obj.Description);
-                //$('#CategoryAddModal').modal('show');
+               
 
             },
             error: function (error) {
@@ -393,13 +417,7 @@ function GetPriceOfSelectedItem() {
                 $('#PriceId').val(obj[0].PriceId);
 
             }
-            
-            //var items = `<option value="-1">Please Select the City</option>`;
-            //$(data).each(function (i, item) {
-            //    items += `<option value=${item.cityId}>` + item.cityName + `</option>`
-            //    console.log(item);
-            //});
-            //$('#CityId').html(items);
+       
         },
         error: function (error) {
             console.log(error);
@@ -407,3 +425,116 @@ function GetPriceOfSelectedItem() {
     })
 }
 
+
+
+function SearchPrice() {
+    var searchText;
+    searchText = $('#searchInputPrice').val();
+    /*$('.closeCategoryButton').click();*/
+    console.log(searchText);
+
+    $.ajax({
+        url: "/InventoryAdmin/SearchPrice?searchText=" + searchText,
+        success: function (data) {
+
+            console.log(data);
+            /* window.location.reload();*/
+
+
+            $('#PricingItemModelView').html(data);
+            $('#searchInput').val(searchText);
+
+
+            /* windows.location.reload();*/
+            /* $('.closeCategoryButton').click();*/
+            /*  $('#categoryTab').click();*/
+            //$('#CategoryModal').modal('toggle');
+            //$('#CategoryModal').modal('show');
+
+
+            /*$('#CategoryModal').modal('show');*/
+
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+
+}
+
+function AddItemsPricingPagination() {
+    var Pagevalue = event.target.innerHTML;
+   
+    $.ajax({
+        url: "/InventoryAdmin/ItemsPricesPagination?pageNo=" + Pagevalue,
+        type: "GET",
+        success: function (data) {
+            console.log(data);
+
+            $('#PricingItemModelView').html(data);
+            /*  $('#categoryTab').click();*/
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+
+function OpenCategoryList() {
+    
+     
+        $.ajax({
+            url: "/InventoryAdmin/GetCategories",
+            type:"GET",
+            success: function (data) {
+                console.log(data);
+                $('#CategoryModelView').html(data);
+                $('#searchInput').val('');
+                $('#CategoryModal').modal('show');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    
+   
+}
+function OpenItemsList() {
+    
+     
+        $.ajax({
+            url: "/InventoryAdmin/GetItems",
+            type:"GET",
+            success: function (data) {
+                console.log(data);
+                $('#InventoryItemModelView').html(data);
+                $('#searchInput').val('');
+                $('#ItemsModal').modal('show');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    
+    
+}
+
+function OpenPricesList() {
+    
+        $.ajax({
+            url: "/InventoryAdmin/GetPrices",
+            type: "GET",
+            success: function (data) {
+                console.log(data);
+                $('#PricingItemModelView').html(data);
+                $('#searchInput').val('');
+                $('#InventoryItemsPricingModal').modal('show');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        }) 
+}

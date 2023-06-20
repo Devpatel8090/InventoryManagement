@@ -13,6 +13,7 @@ namespace InventoryManagement.Repository.Interface
          Task<IEnumerable<T>> GetData<T, P>(string spName, P parameters);
 
          Task SaveData<T>(string spName, T parameters);
+        //Task GetSingleValue<P>(string spName, P parameters);
 
         /*Task GetSingleData<T>(string spName, T parameters);*/
 

@@ -42,22 +42,34 @@
 
         <tbody id="PricingItemModelView">
             @{
-                var collection = @Model.InventoryItemsPricies.Take(3);
-                var totalCount = @Model.InventoryItemsPricies.Count();
-                for (int item = 0; item <= (@collection.Count() - 1); item++)
+                @if (@Model.InventoryItemsPricies.Count() > 0)
                 {
-                    <tr value="@collection.ElementAt(item).PriceId" id="InventoryItemPriceRow_@collection.ElementAt(item).PriceId" onclick="selectInventoryItemPrice()">
-                        <td value="@collection.ElementAt(item).PriceId">
-                            @collection.ElementAt(item).ItemName
-                        </td>
-                        <td value="@collection.ElementAt(item).PriceId">
-                            @collection.ElementAt(item).Price
-                        </td>
+                    var collection = @Model.InventoryItemsPricies.Take(3);
+                    var totalCount = @Model.InventoryItemsPricies.Count();
+                    for (int item = 0; item <= (@collection.Count() - 1); item++)
+                    {
+                        <tr value="@collection.ElementAt(item).PriceId" id="InventoryItemPriceRow_@collection.ElementAt(item).PriceId" onclick="selectInventoryItemPrice()">
+                            <td value="@collection.ElementAt(item).PriceId">
+                                @collection.ElementAt(item).ItemName
+                            </td>
+                            <td value="@collection.ElementAt(item).PriceId">
+                                @collection.ElementAt(item).Price
+                            </td>
 
-                    </tr>
+                        </tr>
 
+
+                    }
 
                 }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-center text-danger"> No Data Found !!</td>
+                    </tr>
+
+                }
+
             }
         </tbody>
     </table>

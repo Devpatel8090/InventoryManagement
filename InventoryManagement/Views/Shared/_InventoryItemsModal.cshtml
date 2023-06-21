@@ -8,10 +8,10 @@
 
 
 <div>
-    <table class="table mt-3">
+    <table class="table mt-3  table-hover">
 
         <thead>
-            <tr>
+            <tr class="">
                 <td>
                     ItemName
                 </td>
@@ -28,31 +28,43 @@
         </thead>
         <tbody id="InventoryItemModelView">
             @{
-                var collection = @Model.InventoryItems.Take(3);
-                var totalCount = @Model.InventoryItems.Count();
-                for(int item = 0; item <= (@collection.Count() - 1); item++)
+                @if (@Model.InventoryItems.Count() > 0)
                 {
-                    <tr value="@collection.ElementAt(item).ItemId" id="InventoryRow_@collection.ElementAt(item).ItemId" onclick="selectInventoryItem()">
-                        <td value="@collection.ElementAt(item).ItemId">
-                            @collection.ElementAt(item).ItemName
-                        </td>
-                        <td value="@collection.ElementAt(item).ItemId">
-                            @collection.ElementAt(item).Description
-                        </td>
-                        <td value="@collection.ElementAt(item).ItemId">
-                            @collection.ElementAt(item).CategoryName
-                        </td>
+                    var collection = @Model.InventoryItems.Take(3);
+                    var totalCount = @Model.InventoryItems.Count();
+                    for (int item = 0; item <= (@collection.Count() - 1); item++)
+                    {
+                        <tr value="@collection.ElementAt(item).ItemId" id="InventoryRow_@collection.ElementAt(item).ItemId" class="" onclick="selectInventoryItem()">
+                            <td value="@collection.ElementAt(item).ItemId">
+                                @collection.ElementAt(item).ItemName
+                            </td>
+                            <td value="@collection.ElementAt(item).ItemId">
+                                @collection.ElementAt(item).Description
+                            </td>
+                            <td value="@collection.ElementAt(item).ItemId">
+                                @collection.ElementAt(item).CategoryName
+                            </td>
 
+                        </tr>
+
+                    }
+
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-danger"> No Data Found !!</td>
                     </tr>
 
                 }
+
             }
         </tbody>
     </table>
 </div>
 
 
-<div >
+<div>
     <partial name="_PaginationItems" model="@Model" />
 </div>
 

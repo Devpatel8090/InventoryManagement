@@ -90,14 +90,14 @@ namespace InventoryManagement.Repository.Repository
                 connection.Open();
                 try
                 {
-                    var data = connection.QueryMultiple("[dbo].sp_INVItemPrices_GetItemPricesBySearch", new { searchString }, commandType: CommandType.StoredProcedure);
-                    var prices = data.Read<InventoryItemsPrices>();
-                    var totalPrices = data.ReadFirstOrDefault().totalCount;
+                    var data = connection.QueryMultiple("[dbo].[sp_INVItems_GetItemsBySearch]", new { searchString }, commandType: CommandType.StoredProcedure);
+                    var items = data.Read<InventoryItems>();
+                    var totalItems = data.ReadFirstOrDefault().TotalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
                     IncomeViewModel incomeViewModel = new IncomeViewModel()
                     {
-                        InventoryItemsPricies = prices,
-                        TotalInventoryItemsPrices = totalPrices
+                        InventoryItems = items,
+                        TotalInventoryItems = totalItems
 
 
                     };
@@ -119,19 +119,56 @@ namespace InventoryManagement.Repository.Repository
 
         }
 
-        public async Task<IEnumerable<InventoryItems>> ItemsPagination(long pageNo)
-        {
-            try
-            {
-                var items = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_Pagination", new { pageNo });
-                return items;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error => ", e.Message);
-                return null;
+        /* public async Task<IEnumerable<InventoryItems>> ItemsPagination(long pageNo)
+         {
+             try
+             {
+                 var items = await _dataAccess.GetData<InventoryItems, dynamic>("[dbo].sp_INVItems_Pagination", new { pageNo });
+                 return items;
+             }
+             catch (Exception e)
+             {
+                 Console.WriteLine("Error => ", e.Message);
+                 return null;
 
+             }
+         }*/
+
+
+        public async Task<IncomeViewModel> ItemsPagination(long pageNo)
+        {
+            using (var connection = _dataAccess.CreateConnection())
+            {
+                connection.Open();
+                try
+                {
+                    var data = connection.QueryMultiple("[dbo].sp_INVItems_Pagination", new { pageNo }, commandType: CommandType.StoredProcedure);
+                    var items = data.Read<InventoryItems>();
+                    var totalItems = data.ReadFirstOrDefault().TotalCount;
+                    //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    {
+                        InventoryItems = items,
+                        TotalInventoryItems = totalItems
+
+
+                    };
+                    return incomeViewModel;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
             }
+
         }
 
         #endregion

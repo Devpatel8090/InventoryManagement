@@ -1,6 +1,7 @@
 ﻿using InventoryManagement.Entities.Model;
 using InventoryManagement.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace RegistrationDemo.Controllers
 {
@@ -37,7 +38,7 @@ namespace RegistrationDemo.Controllers
 
         #region InventoryCategory Methods
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult AddCategory(IncomeViewModel model)
         {
 
@@ -51,6 +52,37 @@ namespace RegistrationDemo.Controllers
             {
                 TempData["error"] = "Oh No! Please Try Again with Different CategoryName";
                 return RedirectToAction("Income");
+
+            }
+        }*/
+
+        public string AddCategory(string AddObj)
+        {
+            var parseObj = JObject.Parse(AddObj);
+            var categoryId = parseObj.Value<long>("categoryId");
+            var categoryName = parseObj.Value<string>("categoryName");
+            var description = parseObj.Value<string>("description");
+
+            Category category = new Category()
+            {
+                CategoryId = categoryId,
+                CategoryName = categoryName,
+                Description = description,
+            };
+            IncomeViewModel model = new IncomeViewModel()
+            {
+                Category = category,
+            };
+            var rowsAffected = _unitOfWork.Category.AddOrUpdateCategories(model);
+            if (rowsAffected > 0)
+            {
+                /*TempData["success"] = "Added Completed Successfully";*/
+                return "Success";
+            }
+            else
+            {
+                /*TempData["error"] = "Oh No! Please Try Again with Different CategoryName";*/
+                return "Fail";
 
             }
         }
@@ -179,19 +211,56 @@ namespace RegistrationDemo.Controllers
 
 
         #region InventoryItems Methods
-        public async Task<IActionResult> AddInventoryItem(IncomeViewModel model)
+        //public async Task<IActionResult> AddInventoryItem(IncomeViewModel model)
+        //{
+
+        //    var IsDone = await _unitOfWork.InventoryItems.AddOrUpdateItem(model);
+        //    if (IsDone)
+        //    {
+        //        TempData["success"] = "process completed  Successfully";
+        //        return RedirectToAction("Income");
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Oh No! Please Try Again with Different ItemName";
+        //        return RedirectToAction("Income");
+
+        //    }
+
+
+        //}
+        public async Task<string> AddInventoryItem(string AddObj)
         {
+            var parseObj = JObject.Parse(AddObj);
+            var itemId = parseObj.Value<long>("itemId");            
+            var itemName = parseObj.Value<string>("itemName");
+            var itemDescription = parseObj.Value<string>("itemDescription");
+            var ItemCategory = parseObj.Value<long>("ItemCategory");
+            var ItemActive = parseObj.Value<bool>("ItemActive");
+
+            InventoryItems inventoryItem = new InventoryItems()
+            {
+                ItemId = itemId,
+                ItemName = itemName,
+                Description = itemDescription,
+                CategoryId = ItemCategory,
+                IsActive = ItemActive
+            };
+            IncomeViewModel model = new IncomeViewModel()
+            {
+               InventoryItem = inventoryItem,
+            };
 
             var IsDone = await _unitOfWork.InventoryItems.AddOrUpdateItem(model);
             if (IsDone)
             {
-                TempData["success"] = "process completed  Successfully";
-                return RedirectToAction("Income");
+               
+                return "Success";
             }
             else
             {
                 TempData["error"] = "Oh No! Please Try Again with Different ItemName";
-                return RedirectToAction("Income");
+                return "Fail";
 
             }
 
@@ -216,7 +285,6 @@ namespace RegistrationDemo.Controllers
             if (itemId == 0)
             {
                 TempData["error"] = "sorry!!!";
-
                 return null;
             }
             else
@@ -235,10 +303,7 @@ namespace RegistrationDemo.Controllers
                     TempData["error"] = "sorry!!!";
                     return null;
                 }
-
-
             }
-
         }
         public async Task<IActionResult> SearchItem(string searchText)
         {
@@ -271,7 +336,7 @@ namespace RegistrationDemo.Controllers
         public async Task<IActionResult> ItemsPagination(long pageNo)
         {
             IncomeViewModel incomeViewModel = new IncomeViewModel();
-            incomeViewModel.InventoryItems = await _unitOfWork.InventoryItems.ItemsPagination(pageNo);
+            incomeViewModel= await _unitOfWork.InventoryItems.ItemsPagination(pageNo);
 
             return PartialView("_InventoryItemsModal", incomeViewModel);
 
@@ -285,19 +350,48 @@ namespace RegistrationDemo.Controllers
 
         #region InventoryItemsPrices Methods
 
-        public async Task<IActionResult> AddInventoryItemsPrice(IncomeViewModel model)
+        //public async Task<IActionResult> AddInventoryItemsPrice(IncomeViewModel model)
+        //{
+        //    var IsDone = await _unitOfWork.InventoryItemsPricies.AddOrUpdateItemPrice(model);
+        //    if (IsDone)
+        //    {
+        //        TempData["success"] = "process completed  Successfully";
+        //        return RedirectToAction("Income");
+        //    }
+        //    else
+        //    {
+        //        TempData["error"] = "Oh No! Please Try Again with Different ItemName";
+        //        return RedirectToAction("Income");
+
+        //    }
+
+        //}
+        public async Task<string> AddItemPrice(string AddObj)
         {
+            var parseObj = JObject.Parse(AddObj);
+            var priceId = parseObj.Value<long>("PriceId");
+            var itemPrice = parseObj.Value<long>("ItemPrice");
+            var itemId = parseObj.Value<long>("ItemId");
+
+
+            InventoryItemsPrices Price = new InventoryItemsPrices()
+            {
+                PriceId = priceId,
+                ItemId = itemId,
+                Price = itemPrice
+            };
+            IncomeViewModel model = new IncomeViewModel()
+            {
+                InventoryItemPrice = Price,
+            };
             var IsDone = await _unitOfWork.InventoryItemsPricies.AddOrUpdateItemPrice(model);
             if (IsDone)
-            {
-                TempData["success"] = "process completed  Successfully";
-                return RedirectToAction("Income");
+            {             
+                return "Success";
             }
             else
-            {
-                TempData["error"] = "Oh No! Please Try Again with Different ItemName";
-                return RedirectToAction("Income");
-
+            {                
+                return "Fail";
             }
 
         }
@@ -386,7 +480,7 @@ namespace RegistrationDemo.Controllers
         public async Task<IActionResult> ItemsPricesPagination(long pageNo)
         {
             IncomeViewModel incomeViewModel = new IncomeViewModel();
-            incomeViewModel.InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.ItemsPricesPagination(pageNo);
+            incomeViewModel = await _unitOfWork.InventoryItemsPricies.ItemsPricesPagination(pageNo);
 
             return PartialView("_PricingItemsModal", incomeViewModel);
 

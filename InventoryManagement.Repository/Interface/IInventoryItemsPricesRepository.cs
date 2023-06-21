@@ -17,6 +17,6 @@ namespace InventoryManagement.Repository.Interface
          Task<int> GetTotalPrices();
 
         Task<string> GetPriceByItemId(long itemId);
-        Task<IEnumerable<InventoryItemsPrices>> ItemsPricesPagination(long pageNo);
+        Task<IncomeViewModel> ItemsPricesPagination(long pageNo);
     }
 }

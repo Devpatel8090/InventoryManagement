@@ -6,24 +6,28 @@
 }
 @model IncomeViewModel
 
-<nav aria-label="Page navigation example"  id="Pagination">
-    <ul class="pagination d-flex justify-content-center mt-3">
-        @*<li class="page-item" style="cursor:pointer">
-            <a class="page-link curser-pointer" aria-label="Previous" onclick="PreviousPage()" style="cursor:pointer">
-            <span aria-hidden="true">&laquo;</span>
-            </a>
-            </li>*@
-        @for (var i = 0; i < Math.Ceiling((decimal)Model.TotalCategories /(decimal)3); i++)
-        {
-            <li class="page-item " style="cursor:pointer"><a class="page-link bg__colour   curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddCategoryPagination()">@(i+1)</a></li>
+    @{
+        var totalPagesOfCategories = Math.Ceiling((decimal)Model.TotalCategories /(decimal)3);
+
+        <input type="number" value="@totalPagesOfCategories" hidden id="TotalCategoriesForPagination" />
         }
 
-        @*
-            <li class="page-item" style="cursor:pointer">
-            <a class="page-link curser-pointer" aria-label="Next" onclick="NextPointer()" style="cursor:pointer">
-            <span aria-hidden="true">&raquo;</span>
+    <ul class="pagination d-flex gap-2 justify-content-center mt-3">
+        <li class="page-item" style="cursor:pointer">
+            <a class="text-decoration-none text-dark border rounded p-1 bg__colour" aria-label="Previous" value="Prev" onclick="AddCategoryPagination()" style="cursor:pointer">
+            <span aria-hidden="true">Prev</span>
             </a>
-            </li>*@
+            </li>
+        @for (var i = 0; i < totalPagesOfCategories; i++)
+        {
+            <li class="page-item " style="cursor:pointer"><a class="text-decoration-none text-dark border rounded p-1 ps-2 pe-2 bg__colour" data-value="@(i)" id="currentPageNo" onclick="AddCategoryPagination()">@(i+1)</a></li>
+        }
+
+        
+            <li class="page-item" style="cursor:pointer">
+            <a class="text-decoration-none text-dark border rounded p-1 bg__colour" aria-label="Next" value="Next" onclick="AddCategoryPagination()" style="cursor:pointer">
+            <span aria-hidden="true">Next</span>
+            </a>
+            </li>
 
     </ul>
-</nav>

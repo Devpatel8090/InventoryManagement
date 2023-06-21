@@ -94,14 +94,14 @@ namespace InventoryManagement.Repository.Repository
                 connection.Open();
                 try
                 {
-                    var data = connection.QueryMultiple("[dbo].sp_INVItems_GetItemsBySearch", new { searchString }, commandType: CommandType.StoredProcedure);
-                    var items = data.Read<InventoryItems>();
+                    var data = connection.QueryMultiple("sp_INVItemPrices_GetItemPricesBySearch", new { searchString }, commandType: CommandType.StoredProcedure);
+                    var items = data.Read<InventoryItemsPrices>();
                     var totalItems = data.ReadFirstOrDefault().totalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
                     IncomeViewModel incomeViewModel = new IncomeViewModel()
                     {
-                        InventoryItems = items,
-                        TotalInventoryItems = totalItems
+                        InventoryItemsPricies = items,
+                        TotalInventoryItemsPrices = totalItems
 
 
                     };
@@ -123,17 +123,48 @@ namespace InventoryManagement.Repository.Repository
 
         }
 
-        public async Task<IEnumerable<InventoryItemsPrices>> ItemsPricesPagination(long pageNo)
+        public async Task<IncomeViewModel> ItemsPricesPagination(long pageNo)
         {
-            try
+            //try
+            //{
+            //    var itemsPrices = await _dataAccess.GetData<InventoryItemsPrices, dynamic>("[dbo].[sp_INVItemPrices_Pagination]", new { pageNo });
+            //    return itemsPrices;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Error => ", e.Message);
+            //    return null;
+            //}
+
+            using (var connection = _dataAccess.CreateConnection())
             {
-                var itemsPrices = await _dataAccess.GetData<InventoryItemsPrices, dynamic>("[dbo].sp_INVItemPrices_Pagination", new { pageNo });
-                return itemsPrices;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error => ", e.Message);
-                return null;
+                connection.Open();
+                try
+                {
+                    var data = connection.QueryMultiple("[dbo].[sp_INVItemPrices_Pagination]", new { pageNo }, commandType: CommandType.StoredProcedure);
+                    var Prices = data.Read<InventoryItemsPrices>();
+                    var TotalPrices = data.ReadFirstOrDefault().TotalCount;
+                    //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
+                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    {
+                        InventoryItemsPricies = Prices,
+                        TotalInventoryItemsPrices = TotalPrices
+                    };
+                    return incomeViewModel;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
+
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
             }
         }
         #endregion

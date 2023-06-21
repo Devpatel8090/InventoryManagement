@@ -1,24 +1,30 @@
 ﻿  @*     InventoryItems Pagination*@
-                <div>
-                    <nav aria-label="Page navigation example" id="Pagination">
-                        <ul class="pagination d-flex justify-content-center mt-3">
-                            @* <li class="page-item" style="cursor:pointer">
-                                <a class="page-link curser-pointer" aria-label="Previous" onclick="PreviousPage()" style="cursor:pointer">
-                                <span aria-hidden="true">&laquo;</span>
-                                </a>
-                                </li>*@
-                            @for (var i = 0; i < Math.Ceiling((decimal)Model.TotalInventoryItems/(decimal)3); i++)
-                            {
-                                <li class="page-item" style="cursor:pointer"><a class="page-link bg__colour curser-pointer" data-value="@(i)" id="currentPageNo" onclick="AddItemsPagination()">@(i+1)</a></li>
-                            }
+<div>
 
-                            @*
-                                <li class="page-item" style="cursor:pointer">
-                                <a class="page-link curser-pointer" aria-label="Next" onclick="NextPointer()" style="cursor:pointer">
-                                <span aria-hidden="true">&raquo;</span>
-                                </a>
-                                </li>*@
-                        </ul>
-                    </nav>
+    @{
+        var totalPagesOfPrices = Math.Ceiling((decimal)Model.TotalInventoryItemsPrices / (decimal)3);
 
-                </div>
+        <input type="number" value="@totalPagesOfPrices" hidden id="TotalPricesForPagination" />
+
+       
+            <ul class="pagination d-flex gap-2 justify-content-center mt-3">
+                <li class="page-item" style="cursor:pointer">
+                    <a class="text-decoration-none text-dark border rounded p-1 bg__colour" aria-label="Previous" value="Prev" onclick="AddItemsPricingPagination()" style="cursor:pointer">
+                        <span aria-hidden="true">Prev</span>
+                    </a>
+                </li>
+                @for (var i = 0; i < totalPagesOfPrices; i++)
+                {
+                    <li class="page-item" style="cursor:pointer"><a class="text-decoration-none text-dark border rounded p-1 ps-2 pe-2 bg__colour" data-value="@(i)" id="currentPageNo" onclick="AddItemsPricingPagination()">@(i+1)</a></li>
+                }
+
+
+                <li class="page-item" style="cursor:pointer">
+                    <a class="text-decoration-none text-dark border rounded p-1 bg__colour" aria-label="Next" value="Next" onclick="AddItemsPricingPagination()" style="cursor:pointer">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+            </ul>
+        
+    }
+</div>

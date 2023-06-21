@@ -16,6 +16,6 @@ namespace InventoryManagement.Repository.Interface
         Task<int> GetTotalItems();
         Task<IncomeViewModel> SearchItems(string searchString);
         Task<IEnumerable<InventoryItems>> DeleteItem(long itemId);
-        Task<IEnumerable<InventoryItems>> ItemsPagination(long pageNo);
+        Task<IncomeViewModel> ItemsPagination(long pageNo);
     }
 }

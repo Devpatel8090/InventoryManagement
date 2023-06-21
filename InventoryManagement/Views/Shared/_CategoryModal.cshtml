@@ -10,24 +10,8 @@
 
 
 
-@*@foreach (var item in @Model.Categories)*@
 @{
 
-    //for (var i = 0; i <  (totalCount/3); i++)
-    //{
-    //    <tr value="@collection.ElementAt(i).CategoryId" id="CategoryRow_@collection.ElementAt(i).CategoryId" onclick="selectCategory()">
-    //        <td value="@collection.ElementAt(i).CategoryId">
-    //            @item.CategoryName
-    //        </td>
-    //        <td value="@item.CategoryId">
-    //            @item.Description
-    //        </td>
-
-    //    </tr>
-
-    //}
-    var collection = @Model.Categories.Take(3);
-    //var totalCount = @Model.Categories.Count() ;
     <div>
         <table class="table mt-3">
 
@@ -45,18 +29,30 @@
 
 
             </thead>
-            @for (int item = 0; item <= (@collection.Count() - 1); item++)
+            @if (Model.Categories.Count() > 0)
             {
-                <tr value="@collection.ElementAt(item).CategoryId" id="CategoryRow_@collection.ElementAt(item).CategoryId" onclick="selectCategory()">
-                    <td value="@collection.ElementAt(item).CategoryId">
-                        @collection.ElementAt(item).CategoryName
-                    </td>
-                    <td value="@collection.ElementAt(item).CategoryId">
-                        @collection.ElementAt(item).Description
-                    </td>
+                var collection = @Model.Categories.Take(3);
 
+                for (int item = 0; item <= (@collection.Count() - 1); item++)
+                {
+                    <tr value="@collection.ElementAt(item).CategoryId" id="CategoryRow_@collection.ElementAt(item).CategoryId" onclick="selectCategory()">
+                        <td value="@collection.ElementAt(item).CategoryId">
+                            @collection.ElementAt(item).CategoryName
+                        </td>
+                        <td value="@collection.ElementAt(item).CategoryId">
+                            @collection.ElementAt(item).Description
+                        </td>
+
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                <td colspan="2" class="text-center text-danger"> No Data Found !!</td>
                 </tr>
-
+                
             }
         </table>
     </div>

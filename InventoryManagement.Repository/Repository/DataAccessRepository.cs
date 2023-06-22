@@ -25,6 +25,14 @@ namespace InventoryManagement.Repository.Repository
         }
 
         public SqlConnection CreateConnection() => new SqlConnection(_connectionString);
+        public void CloseConnection(SqlConnection connection)
+        {
+            if (connection != null && connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+      
         public async Task<IEnumerable<T>> GetData<T, P>(string spName, P parameters)
         {
             

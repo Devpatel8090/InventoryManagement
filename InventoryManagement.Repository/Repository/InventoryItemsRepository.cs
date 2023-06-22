@@ -49,6 +49,7 @@ namespace InventoryManagement.Repository.Repository
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error => ", ex.Message); 
                 return null;
             }
         }
@@ -83,7 +84,7 @@ namespace InventoryManagement.Repository.Repository
         }
 
 
-        public async Task<IncomeViewModel> SearchItems(string searchString)
+        public async Task<InventoryViewModel> SearchItems(string searchString)
         {
             using (var connection = _dataAccess.CreateConnection())
             {
@@ -94,7 +95,7 @@ namespace InventoryManagement.Repository.Repository
                     var items = data.Read<InventoryItems>();
                     var totalItems = data.ReadFirstOrDefault().TotalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         InventoryItems = items,
                         TotalInventoryItems = totalItems
@@ -135,7 +136,7 @@ namespace InventoryManagement.Repository.Repository
          }*/
 
 
-        public async Task<IncomeViewModel> ItemsPagination(long pageNo)
+        public async Task<InventoryViewModel> ItemsPagination(long pageNo)
         {
             using (var connection = _dataAccess.CreateConnection())
             {
@@ -146,7 +147,7 @@ namespace InventoryManagement.Repository.Repository
                     var items = data.Read<InventoryItems>();
                     var totalItems = data.ReadFirstOrDefault().TotalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         InventoryItems = items,
                         TotalInventoryItems = totalItems
@@ -177,7 +178,7 @@ namespace InventoryManagement.Repository.Repository
 
         #region PostMethods
 
-        public async Task<bool> AddOrUpdateItem(IncomeViewModel model)
+        public async Task<bool> AddOrUpdateItem(InventoryViewModel model)
         {
             if (model.InventoryItem.ItemId > 0)
             {

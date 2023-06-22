@@ -17,9 +17,9 @@ namespace RegistrationDemo.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Income()
+        public async Task<IActionResult> Inventory()
         {
-            IncomeViewModel model = new IncomeViewModel
+            InventoryViewModel model = new InventoryViewModel
             {
                 Categories = _unitOfWork.Category.GetCategories(),
                 InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems(),
@@ -39,19 +39,19 @@ namespace RegistrationDemo.Controllers
         #region InventoryCategory Methods
 
         /*[HttpPost]
-        public IActionResult AddCategory(IncomeViewModel model)
+        public IActionResult AddCategory(InventoryViewModel model)
         {
 
             var rowsAffected = _unitOfWork.Category.AddOrUpdateCategories(model);
             if (rowsAffected > 0)
             {
                 TempData["success"] = "Added Completed Successfully";
-                return RedirectToAction("Income");
+                return RedirectToAction("Inventory");
             }
             else
             {
                 TempData["error"] = "Oh No! Please Try Again with Different CategoryName";
-                return RedirectToAction("Income");
+                return RedirectToAction("Inventory");
 
             }
         }*/
@@ -69,7 +69,7 @@ namespace RegistrationDemo.Controllers
                 CategoryName = categoryName,
                 Description = description,
             };
-            IncomeViewModel model = new IncomeViewModel()
+            InventoryViewModel model = new InventoryViewModel()
             {
                 Category = category,
             };
@@ -89,33 +89,33 @@ namespace RegistrationDemo.Controllers
 
         public IActionResult GetCategories()
         {
-            IncomeViewModel incomeViewModel = new IncomeViewModel
+            InventoryViewModel InventoryViewModel = new InventoryViewModel
             {
                 Categories = _unitOfWork.Category.GetCategories(),
                 TotalCategories = _unitOfWork.Category.GetCategories().Count(),
             };
-            return PartialView("_CategoryModal", incomeViewModel);
+            return PartialView("_CategoryModal", InventoryViewModel);
         }
         public async Task<IActionResult> GetItems()
         {
-            IncomeViewModel incomeViewModel = new IncomeViewModel
+            InventoryViewModel InventoryViewModel = new InventoryViewModel
             {
                 InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems(),
                 TotalInventoryItems = await _unitOfWork.InventoryItems.GetTotalItems()
             };
-            return PartialView("_InventoryItemsModal", incomeViewModel);
+            return PartialView("_InventoryItemsModal", InventoryViewModel);
         }
 
         public async Task<IActionResult> GetPrices()
         {
             var count = await _unitOfWork.InventoryItemsPricies.GetAllPrices();
-            IncomeViewModel incomeViewModel = new IncomeViewModel
+            InventoryViewModel InventoryViewModel = new InventoryViewModel
             {
                 InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.GetAllPrices(),
                 TotalInventoryItemsPrices = await _unitOfWork.InventoryItemsPricies.GetTotalPrices()
                 
             };
-            return PartialView("_PricingItemsModal", incomeViewModel);
+            return PartialView("_PricingItemsModal", InventoryViewModel);
         }
 
         public string EditCategory(long categoryId)
@@ -137,7 +137,7 @@ namespace RegistrationDemo.Controllers
             if (categoryId == 0)
             {
                 TempData["error"] = "sorry!!!";
-                return RedirectToAction("Income");
+                return RedirectToAction("Inventory");
             }
             else
             {
@@ -151,7 +151,7 @@ namespace RegistrationDemo.Controllers
                     TempData["error"] = "sorry!!!";
                 }
 
-                return RedirectToAction("Income");
+                return RedirectToAction("Inventory");
             }
         }
 
@@ -160,10 +160,10 @@ namespace RegistrationDemo.Controllers
             if (searchText == null)
             {
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                incomeViewModel.Categories = _unitOfWork.Category.GetCategories();
-                incomeViewModel.TotalCategories = _unitOfWork.Category.GetCategories().Count();
-                return PartialView("_CategoryModal", incomeViewModel);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                InventoryViewModel.Categories = _unitOfWork.Category.GetCategories();
+                InventoryViewModel.TotalCategories = _unitOfWork.Category.GetCategories().Count();
+                return PartialView("_CategoryModal", InventoryViewModel);
 
             }
             else
@@ -172,12 +172,12 @@ namespace RegistrationDemo.Controllers
                 /*var Categories = await _unitOfWork.Category.SearchCategory(searchtext);
                 return PartialView(Categories );*/
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                //incomeViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
-                incomeViewModel = await _unitOfWork.Category.SearchCategory(searchtext);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                //InventoryViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
+                InventoryViewModel = await _unitOfWork.Category.SearchCategory(searchtext);
 
 
-                return PartialView("_CategoryModal", incomeViewModel);
+                return PartialView("_CategoryModal", InventoryViewModel);
 
 
 
@@ -186,22 +186,22 @@ namespace RegistrationDemo.Controllers
 
         public async Task<IActionResult> CategoryPagination(long pageNo)
         {
-            IncomeViewModel incomeViewModel = new IncomeViewModel();
-            //incomeViewModel.Categories = await _unitOfWork.Category.CategoryPagination(pageNo);
-            incomeViewModel = await _unitOfWork.Category.CategoryPagination(pageNo);
+            InventoryViewModel InventoryViewModel = new InventoryViewModel();
+            //InventoryViewModel.Categories = await _unitOfWork.Category.CategoryPagination(pageNo);
+            InventoryViewModel = await _unitOfWork.Category.CategoryPagination(pageNo);
 
-            return PartialView("_CategoryModal", incomeViewModel);
+            return PartialView("_CategoryModal", InventoryViewModel);
 
         }
 
-        public async Task<IActionResult> SearchCategoryWithPagination(string searchText, int pageSize = 3, int pageNo = 1)
+        public async Task<IActionResult> SearchCategoryWithPagination(string searchText, int pageNo = 1, int pageSize = 3)
         {
 
 
-            IncomeViewModel incomeViewModel = new IncomeViewModel();
-            //incomeViewModel.Categories = await _unitOfWork.Category.SearchCategoryWithPagination(searchText, pageNo, pageSize);
-            incomeViewModel = await _unitOfWork.Category.SearchCategoryWithPagination(searchText, pageSize, pageNo);
-            return PartialView("_CategoryModal", incomeViewModel);
+            InventoryViewModel InventoryViewModel = new InventoryViewModel();
+            //InventoryViewModel.Categories = await _unitOfWork.Category.SearchCategoryWithPagination(searchText, pageNo, pageSize);
+            InventoryViewModel = await _unitOfWork.Category.SearchCategoryWithPagination(searchText, pageNo,pageSize);
+            return PartialView("_CategoryModal", InventoryViewModel);
 
         }
 
@@ -211,19 +211,19 @@ namespace RegistrationDemo.Controllers
 
 
         #region InventoryItems Methods
-        //public async Task<IActionResult> AddInventoryItem(IncomeViewModel model)
+        //public async Task<IActionResult> AddInventoryItem(InventoryViewModel model)
         //{
 
         //    var IsDone = await _unitOfWork.InventoryItems.AddOrUpdateItem(model);
         //    if (IsDone)
         //    {
         //        TempData["success"] = "process completed  Successfully";
-        //        return RedirectToAction("Income");
+        //        return RedirectToAction("Inventory");
         //    }
         //    else
         //    {
         //        TempData["error"] = "Oh No! Please Try Again with Different ItemName";
-        //        return RedirectToAction("Income");
+        //        return RedirectToAction("Inventory");
 
         //    }
 
@@ -246,7 +246,7 @@ namespace RegistrationDemo.Controllers
                 CategoryId = ItemCategory,
                 IsActive = ItemActive
             };
-            IncomeViewModel model = new IncomeViewModel()
+            InventoryViewModel model = new InventoryViewModel()
             {
                InventoryItem = inventoryItem,
             };
@@ -294,9 +294,9 @@ namespace RegistrationDemo.Controllers
                 {
 
                     TempData["success"] = "Deleted Successfully";
-                    IncomeViewModel incomeViewModel = new IncomeViewModel();
-                    incomeViewModel.InventoryItems = remainingRows;
-                    return PartialView("_InventoryItemsModal", incomeViewModel);
+                    InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                    InventoryViewModel.InventoryItems = remainingRows;
+                    return PartialView("_InventoryItemsModal", InventoryViewModel);
                 }
                 else
                 {
@@ -310,10 +310,10 @@ namespace RegistrationDemo.Controllers
             if (searchText == null)
             {
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                incomeViewModel.InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems();
-                incomeViewModel.TotalInventoryItems = incomeViewModel.InventoryItems.Count();
-                return PartialView("_InventoryItemsModal", incomeViewModel);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                InventoryViewModel.InventoryItems = await _unitOfWork.InventoryItems.GetInventoryItems();
+                InventoryViewModel.TotalInventoryItems = InventoryViewModel.InventoryItems.Count();
+                return PartialView("_InventoryItemsModal", InventoryViewModel);
 
             }
             else
@@ -322,12 +322,12 @@ namespace RegistrationDemo.Controllers
                 /*var Categories = await _unitOfWork.Category.SearchCategory(searchtext);
                 return PartialView(Categories );*/
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                //incomeViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
-                incomeViewModel = await _unitOfWork.InventoryItems.SearchItems(searchtext);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                //InventoryViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
+                InventoryViewModel = await _unitOfWork.InventoryItems.SearchItems(searchtext);
 
 
-                return PartialView("_InventoryItemsModal", incomeViewModel);
+                return PartialView("_InventoryItemsModal", InventoryViewModel);
 
 
 
@@ -335,10 +335,10 @@ namespace RegistrationDemo.Controllers
         }
         public async Task<IActionResult> ItemsPagination(long pageNo)
         {
-            IncomeViewModel incomeViewModel = new IncomeViewModel();
-            incomeViewModel= await _unitOfWork.InventoryItems.ItemsPagination(pageNo);
+            InventoryViewModel InventoryViewModel = new InventoryViewModel();
+            InventoryViewModel= await _unitOfWork.InventoryItems.ItemsPagination(pageNo);
 
-            return PartialView("_InventoryItemsModal", incomeViewModel);
+            return PartialView("_InventoryItemsModal", InventoryViewModel);
 
         }
 
@@ -350,18 +350,18 @@ namespace RegistrationDemo.Controllers
 
         #region InventoryItemsPrices Methods
 
-        //public async Task<IActionResult> AddInventoryItemsPrice(IncomeViewModel model)
+        //public async Task<IActionResult> AddInventoryItemsPrice(InventoryViewModel model)
         //{
         //    var IsDone = await _unitOfWork.InventoryItemsPricies.AddOrUpdateItemPrice(model);
         //    if (IsDone)
         //    {
         //        TempData["success"] = "process completed  Successfully";
-        //        return RedirectToAction("Income");
+        //        return RedirectToAction("Inventory");
         //    }
         //    else
         //    {
         //        TempData["error"] = "Oh No! Please Try Again with Different ItemName";
-        //        return RedirectToAction("Income");
+        //        return RedirectToAction("Inventory");
 
         //    }
 
@@ -380,7 +380,7 @@ namespace RegistrationDemo.Controllers
                 ItemId = itemId,
                 Price = itemPrice
             };
-            IncomeViewModel model = new IncomeViewModel()
+            InventoryViewModel model = new InventoryViewModel()
             {
                 InventoryItemPrice = Price,
             };
@@ -424,9 +424,9 @@ namespace RegistrationDemo.Controllers
                 {
 
                     TempData["success"] = "Deleted Successfully";
-                    IncomeViewModel incomeViewModel = new IncomeViewModel();
-                    incomeViewModel.InventoryItemsPricies = remainingRows;
-                    return PartialView("_PricingItemsModal", incomeViewModel);
+                    InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                    InventoryViewModel.InventoryItemsPricies = remainingRows;
+                    return PartialView("_PricingItemsModal", InventoryViewModel);
                 }
                 else
                 {
@@ -451,10 +451,10 @@ namespace RegistrationDemo.Controllers
             if (searchText == null)
             {
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                incomeViewModel.InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.GetAllPrices();
-                incomeViewModel.TotalInventoryItemsPrices = incomeViewModel.InventoryItemsPricies.Count();
-                return PartialView("_PricingItemsModal", incomeViewModel);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                InventoryViewModel.InventoryItemsPricies = await _unitOfWork.InventoryItemsPricies.GetAllPrices();
+                InventoryViewModel.TotalInventoryItemsPrices = InventoryViewModel.InventoryItemsPricies.Count();
+                return PartialView("_PricingItemsModal", InventoryViewModel);
 
             }
             else
@@ -463,12 +463,12 @@ namespace RegistrationDemo.Controllers
                 /*var Categories = await _unitOfWork.Category.SearchCategory(searchtext);
                 return PartialView(Categories );*/
 
-                IncomeViewModel incomeViewModel = new IncomeViewModel();
-                //incomeViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
-                incomeViewModel = await _unitOfWork.InventoryItemsPricies.SearchPrice(searchtext);
+                InventoryViewModel InventoryViewModel = new InventoryViewModel();
+                //InventoryViewModel.Categories = await _unitOfWork.Category.SearchCategory(searchtext);
+                InventoryViewModel = await _unitOfWork.InventoryItemsPricies.SearchPrice(searchtext);
 
 
-                return PartialView("_PricingItemsModal", incomeViewModel);
+                return PartialView("_PricingItemsModal", InventoryViewModel);
 
 
 
@@ -479,10 +479,10 @@ namespace RegistrationDemo.Controllers
 
         public async Task<IActionResult> ItemsPricesPagination(long pageNo)
         {
-            IncomeViewModel incomeViewModel = new IncomeViewModel();
-            incomeViewModel = await _unitOfWork.InventoryItemsPricies.ItemsPricesPagination(pageNo);
+            InventoryViewModel InventoryViewModel = new InventoryViewModel();
+            InventoryViewModel = await _unitOfWork.InventoryItemsPricies.ItemsPricesPagination(pageNo);
 
-            return PartialView("_PricingItemsModal", incomeViewModel);
+            return PartialView("_PricingItemsModal", InventoryViewModel);
 
         }
         #endregion

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YtuoDrIWGzG+Q4vKfgbkfSLySwjgQl6MWu/KUrGLj1A=",
+  "Hash": "GSAx4mmvvZxTscoIK29j5mTFJVaUgW1tvReYf+XOjJw=",
   "Source": "InventoryManagement",
   "BasePath": "_content/InventoryManagement",
   "Mode": "Default",
@@ -51,12 +51,12 @@
       "OriginalItemSpec": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\InventoryManagement.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\css\\InventoryIncome.css",
+      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\css\\Inventory.css",
       "SourceId": "InventoryManagement",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\",
       "BasePath": "_content/InventoryManagement",
-      "RelativePath": "css/InventoryIncome.css",
+      "RelativePath": "css/Inventory.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,7 +65,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\InventoryIncome.css"
+      "OriginalItemSpec": "wwwroot\\css\\Inventory.css"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\css\\site.css",
@@ -102,12 +102,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\Income.js",
+      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\Inventory.js",
       "SourceId": "InventoryManagement",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\",
       "BasePath": "_content/InventoryManagement",
-      "RelativePath": "js/Income.js",
+      "RelativePath": "js/Inventory.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,7 +116,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\Income.js"
+      "OriginalItemSpec": "wwwroot\\js\\Inventory.js"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\site.js",

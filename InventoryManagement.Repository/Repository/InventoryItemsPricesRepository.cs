@@ -87,7 +87,7 @@ namespace InventoryManagement.Repository.Repository
         }
 
 
-        public async Task<IncomeViewModel> SearchPrice(string searchString)
+        public async Task<InventoryViewModel> SearchPrice(string searchString)
         {
             using (var connection = _dataAccess.CreateConnection())
             {
@@ -98,7 +98,7 @@ namespace InventoryManagement.Repository.Repository
                     var items = data.Read<InventoryItemsPrices>();
                     var totalItems = data.ReadFirstOrDefault().totalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         InventoryItemsPricies = items,
                         TotalInventoryItemsPrices = totalItems
@@ -123,7 +123,7 @@ namespace InventoryManagement.Repository.Repository
 
         }
 
-        public async Task<IncomeViewModel> ItemsPricesPagination(long pageNo)
+        public async Task<InventoryViewModel> ItemsPricesPagination(long pageNo)
         {
             //try
             //{
@@ -145,7 +145,7 @@ namespace InventoryManagement.Repository.Repository
                     var Prices = data.Read<InventoryItemsPrices>();
                     var TotalPrices = data.ReadFirstOrDefault().TotalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         InventoryItemsPricies = Prices,
                         TotalInventoryItemsPrices = TotalPrices
@@ -172,7 +172,7 @@ namespace InventoryManagement.Repository.Repository
 
         #region PostMethods
 
-        public async Task<bool> AddOrUpdateItemPrice(IncomeViewModel model)
+        public async Task<bool> AddOrUpdateItemPrice(InventoryViewModel model)
         {
             if (model.InventoryItemPrice.PriceId > 0)
             {

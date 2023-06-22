@@ -11,17 +11,17 @@ namespace InventoryManagement.Repository.Interface
     public interface ICategoryRepository
     {
         public IEnumerable<Category> GetCategories();
-        public int AddOrUpdateCategories(IncomeViewModel model);
+        public int AddOrUpdateCategories(InventoryViewModel model);
 
         public string EditCategory(long categoryId);
         public int DeleteCategory(long categoryId);
-        Task<IncomeViewModel> SearchCategory(string searchString);
+        Task<InventoryViewModel> SearchCategory(string searchString);
 
         //Task<IEnumerable<Category>> CategoryPagination(long pageNo);
 
-        Task<IncomeViewModel> CategoryPagination(long pageNo);
+        Task<InventoryViewModel> CategoryPagination(long pageNo);
 
-        Task<IncomeViewModel> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3);
+        Task<InventoryViewModel> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3);
 
 
     }

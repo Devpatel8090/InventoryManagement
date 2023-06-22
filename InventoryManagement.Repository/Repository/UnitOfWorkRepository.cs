@@ -17,29 +17,29 @@ namespace InventoryManagement.Repository.Repository
         private readonly string _connectionString;
         private readonly IDataAccessRepository _dataAccess;
 
-        public UnitOfWorkRepository(IConfiguration configuration, IDataAccessRepository dataAccess)
+        public UnitOfWorkRepository(/*IConfiguration configuration*/ IDataAccessRepository dataAccess)
         {
-            _configuration = configuration;
+            /*_configuration = configuration;*/
             _dataAccess = dataAccess;
-
             Category = new CategoryRepository(_dataAccess);
             InventoryItems = new InventoryItemsRepository(_dataAccess);
             InventoryItemsPricies = new InventoryItemsPricesRepository(_dataAccess);
+            PurchaseInvoice = new PurchaseInvoiceRepository(_dataAccess);
+            VendorsDetails = new VendorsDetailsRepository(_dataAccess);
+            CustomerDetails = new CustomerDetailsRepository(_dataAccess);
+            SalesInvoice = new SalesInvoiceRepository(_dataAccess);
             /*DataAccess = new DataAccessRepository(_connectionString);*/
         }
-
         /*public SqlConnection CreateConnection() => new SqlConnection(_connectionString);*/
-
-        public IinventoryItemsRepository InventoryItems { get; private set; }
-
         public IDataAccessRepository DataAccess { get; private set; }
-
-
-
         public ICategoryRepository Category { get; private set; }
-        public IInventoryItemsPricesRepository InventoryItemsPricies {  get; private set;}
-
-
+        public IinventoryItemsRepository InventoryItems { get; private set; }
+        public IInventoryItemsPricesRepository InventoryItemsPricies { get; private set; }
+        public IVendorsDetailsRepository VendorsDetails { get; private set; }
+        public IPurchaseInvoiceRepository PurchaseInvoice { get; private set; }
+        public ICustomerDetailsRepository CustomerDetails { get; private set; }
+        public ISalesInvoiceRepository SalesInvoice { get; private set; }
+        
 
     }
 }

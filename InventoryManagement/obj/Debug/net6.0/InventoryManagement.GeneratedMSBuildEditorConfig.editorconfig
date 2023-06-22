@@ -15,6 +15,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\pca39\Desktop\InventoryManagement\InventoryManagement
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/AccountPayable/AccountPayable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFBheWFibGVcQWNjb3VudFBheWFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/AccountReceivable/AccountReceivable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFJlY2VpdmFibGVcQWNjb3VudFJlY2VpdmFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -23,12 +31,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/InventoryAdmin/Income.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5QWRtaW5cSW5jb21lLmNzaHRtbA==
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/InventoryAdmin/Inventory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5QWRtaW5cSW52ZW50b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/InventoryAdmin/Payee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5QWRtaW5cUGF5ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/PurchaseInvoice/PurchaseInvoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVyY2hhc2VJbnZvaWNlXFB1cmNoYXNlSW52b2ljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Shared/Error.cshtml]
@@ -69,6 +81,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/Vendors/VendorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZG9yc1xWZW5kb3JQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca39/Desktop/InventoryManagement/InventoryManagement/Views/_ViewImports.cshtml]

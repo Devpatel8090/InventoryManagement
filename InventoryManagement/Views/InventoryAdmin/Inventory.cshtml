@@ -8,9 +8,9 @@
     ViewData["Title"] = "";
     Layout = "~/Views/Shared/_INVManagementLayout.cshtml";
 }
-@model IncomeViewModel
+@model InventoryViewModel
 
-@* MISSION SKILLS PAGE*@
+@* Inventory PAGE*@
 
 <div>
    
@@ -96,8 +96,8 @@
                         <span>Delete</span>
                     </div>
                     <div>
-                        <input type="text" class="border rounded " id="searchInput" />
-                        <button onclick="SearchCategory()" class="rounded-3 border rounded bg__colour p-1">Search</button>
+                        <input type="text" class="border rounded " id="searchCategoryInput" />
+                        <button onclick="AddCategoryPagination()" class="rounded-3 border rounded bg__colour p-1">Search</button>
                     </div>
                 </div>
 
@@ -385,13 +385,13 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="~/js/income.js"></script>
+<script src="~/js/Inventory.js"></script>
 
 <script>
     $(document).ready(function() {
         var activeTabId = $("#AllAdminTabsList").find("a.active").attr('id');
         $('#' + activeTabId).removeClass("active");
-        $('#IncomeTab').addClass("active");
+        $('#InventoryTab').addClass("active");
     });
 </script>
 @section Scripts {

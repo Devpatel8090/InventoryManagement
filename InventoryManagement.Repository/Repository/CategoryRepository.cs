@@ -114,7 +114,7 @@ namespace InventoryManagement.Repository.Repository
             }
         }
 
-        public async Task<IncomeViewModel> SearchCategory(string searchString)
+        public async Task<InventoryViewModel> SearchCategory(string searchString)
         {                   
                 using (var connection = _dataAccess.CreateConnection())
                 {
@@ -125,7 +125,7 @@ namespace InventoryManagement.Repository.Repository
                         var Categories = data.Read<Category>();
                         var TotalCategories = data.ReadFirstOrDefault().totalCount;
                         //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                        IncomeViewModel incomeViewModel = new IncomeViewModel()
+                        InventoryViewModel incomeViewModel = new InventoryViewModel()
                         {
                             Categories = Categories,
                             TotalCategories = TotalCategories
@@ -164,7 +164,7 @@ namespace InventoryManagement.Repository.Repository
         //    }
         //}
 
-        public async Task<IncomeViewModel> CategoryPagination(long pageNo)
+        public async Task<InventoryViewModel> CategoryPagination(long pageNo)
         {
             using (var connection = _dataAccess.CreateConnection())
             {
@@ -175,7 +175,7 @@ namespace InventoryManagement.Repository.Repository
                     var Categories = data.Read<Category>();
                     var TotalCategories = data.ReadFirstOrDefault().totalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         Categories = Categories,
                         TotalCategories = TotalCategories
@@ -199,7 +199,7 @@ namespace InventoryManagement.Repository.Repository
         }
 
 
-        public async Task<IncomeViewModel> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3)
+        public async Task<InventoryViewModel> SearchCategoryWithPagination(string searchString, int pageNo = 1, int pageSize = 3)
         {
             //try
             //{
@@ -225,16 +225,19 @@ namespace InventoryManagement.Repository.Repository
                 connection.Open();
                 try
                 {
+                    /*if(searchString == null)
+                    {
+
+                    }
+                    else { }*/
                     var data = connection.QueryMultiple("[dbo].sp_INVCategory_GetCategoriesBySearchWithPagination", new { searchString, pageNo, pageSize }, commandType: CommandType.StoredProcedure);
                     var Categories = data.Read<Category>();
-                    var TotalCategories = data.ReadFirstOrDefault().countofnum;
+                    var TotalCategories = data.ReadFirstOrDefault().TotalCount;
                     //var categories = await _dataAccess.GetData<Category, dynamic>("[dbo].sp_INVCategory_GetCategoriesBySearch", new { searchString });
-                    IncomeViewModel incomeViewModel = new IncomeViewModel()
+                    InventoryViewModel incomeViewModel = new InventoryViewModel()
                     {
                         Categories = Categories,
                         TotalCategories = TotalCategories
-
-
                     };
 
 
@@ -263,7 +266,7 @@ namespace InventoryManagement.Repository.Repository
 
         #region PostMethods
 
-        public int AddOrUpdateCategories(IncomeViewModel model)
+        public int AddOrUpdateCategories(InventoryViewModel model)
         {
             /*using (var connection = new SqlConnection(_connectionString))*/
             using (var connection = _dataAccess.CreateConnection())

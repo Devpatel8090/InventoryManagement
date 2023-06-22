@@ -10,6 +10,7 @@ namespace InventoryManagement.Repository.Interface
     public interface IDataAccessRepository
     {
         public SqlConnection CreateConnection();
+        public void CloseConnection(SqlConnection connection);
          Task<IEnumerable<T>> GetData<T, P>(string spName, P parameters);
 
          Task SaveData<T>(string spName, T parameters);

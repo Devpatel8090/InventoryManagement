@@ -18,7 +18,7 @@
                 </li>
                 @for (var i = 0; i < totalPagesOfItems; i++)
                 {
-                    <li class="page-item" style="cursor:pointer"><a class="text-decoration-none text-dark border rounded p-1 ps-2 pe-2 bg__colour" data-value="@(i)" id="currentPageNo_@i" onclick="AddItemsPagination()">@(i+1)</a></li>
+                    <li class="page-item" style="cursor:pointer"><a class="text-decoration-none text-dark border rounded p-1 ps-2 pe-2 bg__colour" data-value="@(i)" id="currentItemsPageNo_@(i+1)" onclick="AddItemsPagination()">@(i+1)</a></li>
                 }
 
 

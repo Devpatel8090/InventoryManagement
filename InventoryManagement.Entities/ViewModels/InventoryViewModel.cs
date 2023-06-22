@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagement.Entities.Model
 {
-    public class IncomeViewModel
+    public class InventoryViewModel
     {
         public Category Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }  = Enumerable.Empty<Category>();

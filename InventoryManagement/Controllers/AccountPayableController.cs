@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InventoryManagement.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagement.Controllers
 {
     public class AccountPayableController : Controller
     {
-        public IActionResult Index()
+        private readonly IUnitOfWorkRepository _unitOfWork;
+        public AccountPayableController(IUnitOfWorkRepository unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+
+        }
+        public IActionResult AccountPayable()
         {
             return View();
         }

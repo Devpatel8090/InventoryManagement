@@ -10,12 +10,12 @@ namespace InventoryManagement.Repository.Interface
     public interface IinventoryItemsRepository
     {
         Task<IEnumerable<InventoryItems>> GetInventoryItems();
-        Task<bool> AddOrUpdateItem(IncomeViewModel model);
+        Task<bool> AddOrUpdateItem(InventoryViewModel model);
 
         Task<string> GetInventoryItemById(long itemId);
         Task<int> GetTotalItems();
-        Task<IncomeViewModel> SearchItems(string searchString);
+        Task<InventoryViewModel> SearchItems(string searchString);
         Task<IEnumerable<InventoryItems>> DeleteItem(long itemId);
-        Task<IncomeViewModel> ItemsPagination(long pageNo);
+        Task<InventoryViewModel> ItemsPagination(long pageNo);
     }
 }

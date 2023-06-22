@@ -13,6 +13,7 @@ function OpenCategoryList() {
             $('#CategoryModelView').html(data);
             $('#searchInput').val('');
             $('#CategoryModal').modal('show');
+            $('#currentCategoriesPageNo_' + 1).removeClass('bg__colour');
         },
         error: function (error) {
             console.log(error);
@@ -144,7 +145,7 @@ function FillDataOnEditCategory() {
 
 function SearchCategory() {
     var searchText;
-    searchText = $('#searchInput').val();
+    searchText = $('#searchCategoryInput').val();
     /*$('.closeCategoryButton').click();*/
     console.log(searchText);
 
@@ -157,8 +158,9 @@ function SearchCategory() {
 
 
             $('#CategoryModelView').html(data);
-            $('#searchInput').val(searchText);
+            $('#searchCategoryInput').val(searchText);
             categoryPageNo = 1;
+            $('#currentCategoriesPageNo_' + 1).removeClass('bg__colour');
 
 
 
@@ -196,30 +198,51 @@ function AddCategoryPagination() {
     if (idea == "Next") {
         if (categoryPageNo < totalPages) {
             categoryPageNo++;
+            
         }
         else {
             categoryPageNo = categoryPageNo;
         }
+        firstime = 1;
     }
     else if (idea == "Prev") {
         if (categoryPageNo > 1) {
             categoryPageNo--;
+            
         }
         else {
             categoryPageNo = categoryPageNo
         }
+        firstime = 1;
     }
     else {
         categoryPageNo = idea;
+        firstime = 1;
     }
+    var search = $('#searchCategoryInput').val() 
 
+    var url;
+    if (search != null) {
+        var firstime = 0;
+        if (firstime < 1) {
+            firstime++;
+            categoryPageNo = 1;
+        }
+        
+
+        url = "/InventoryAdmin/SearchCategoryWithPagination?searchText=" + search + "&pageNo=" + categoryPageNo;
+    }
+    else {
+        url = "/InventoryAdmin/CategoryPagination?pageNo=" + categoryPageNo;
+    }
     $.ajax({
-        url: "/InventoryAdmin/CategoryPagination?pageNo=" + categoryPageNo,
+        url: url,
         type: "GET",
         success: function (data) {
             console.log(data);
-
+            
             $('#CategoryModelView').html(data);
+            $('#currentCategoriesPageNo_' + categoryPageNo).removeClass('bg__colour');
             /*  $('#categoryTab').click();*/
 
         },
@@ -323,6 +346,7 @@ function OpenItemsList() {
             $('#InventoryItemModelView').html(data);
             $('#searchInput').val('');
             $('#ItemsModal').modal('show');
+            $('#currentItemsPageNo_' + 1).removeClass('bg__colour');
         },
         error: function (error) {
             console.log(error);
@@ -340,6 +364,7 @@ function selectInventoryItem() {
     console.log(selectedInventoryItem);
     $('tr').removeClass("bg__colour");
     $('#InventoryRow_' + selectedInventoryItem).addClass("bg__colour");
+   
 
 }
 
@@ -538,6 +563,7 @@ function AddItemsPagination() {
             console.log(data);
 
             $('#InventoryItemModelView').html(data);
+            $('#currentItemsPageNo_' + ItemPageNo).removeClass('bg__colour');
             /*  $('#categoryTab').click();*/
 
         },
@@ -564,6 +590,7 @@ function OpenPricesList() {
             $('#PricingItemModelView').html(data);
             $('#searchInput').val('');
             $('#InventoryItemsPricingModal').modal('show');
+            $('#currentPricesPageNo_' + 1).removeClass('bg__colour');
         },
         error: function (error) {
             console.log(error);
@@ -578,6 +605,7 @@ function selectInventoryItemPrice() {
     console.log(selectedInventoryItemPrice);
     $('tr').removeClass("bg__colour");
     $('#InventoryItemPriceRow_' + selectedInventoryItemPrice).addClass("bg__colour");
+    
 
 }
 
@@ -786,6 +814,9 @@ function AddItemsPricingPagination() {
             console.log(data);
 
             $('#PricingItemModelView').html(data);
+            console.log('#currentPageNo_' + PricePageNo);
+            $('#currentPricesPageNo_' + PricePageNo).removeClass('bg__colour');
+            
             /*  $('#categoryTab').click();*/
 
         },

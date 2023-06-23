@@ -17,6 +17,9 @@ namespace InventoryManagement.Repository.Interface
         public IVendorsDetailsRepository VendorsDetails { get; }
         public ICustomerDetailsRepository CustomerDetails { get; }
         public ISalesInvoiceRepository SalesInvoice { get; }
+        public ICountryRepository Country { get; }
+        public IStateRepository State { get; }
+        public ICityRepository City { get; }
 
 
         /*        public IDataAccessRepository DataAccess { get; }*/

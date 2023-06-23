@@ -20,6 +20,9 @@ namespace InventoryManagement.Entities.Model
         public string StateName { get; set; }
         public long CityId { get; set; }
         public string CityName { get; set; }
+        
+        public  DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
     }
 }

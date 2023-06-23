@@ -15,6 +15,7 @@ namespace InventoryManagement.Repository.Interface
 
          Task SaveData<T>(string spName, T parameters);
         //Task GetSingleValue<P>(string spName, P parameters);
+        Task<T> GetSingleData<T, P>(string spName, P parameters);
 
         /*Task GetSingleData<T>(string spName, T parameters);*/
 

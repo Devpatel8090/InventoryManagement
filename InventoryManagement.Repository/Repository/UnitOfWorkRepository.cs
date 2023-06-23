@@ -28,6 +28,9 @@ namespace InventoryManagement.Repository.Repository
             VendorsDetails = new VendorsDetailsRepository(_dataAccess);
             CustomerDetails = new CustomerDetailsRepository(_dataAccess);
             SalesInvoice = new SalesInvoiceRepository(_dataAccess);
+            Country = new CountryRepository(_dataAccess);
+            State = new StateRepository(_dataAccess);
+            City = new CityRepository(_dataAccess);
             /*DataAccess = new DataAccessRepository(_connectionString);*/
         }
         /*public SqlConnection CreateConnection() => new SqlConnection(_connectionString);*/
@@ -39,7 +42,9 @@ namespace InventoryManagement.Repository.Repository
         public IPurchaseInvoiceRepository PurchaseInvoice { get; private set; }
         public ICustomerDetailsRepository CustomerDetails { get; private set; }
         public ISalesInvoiceRepository SalesInvoice { get; private set; }
-        
+        public ICountryRepository Country { get; private set; }
+        public IStateRepository State { get; private set; }
+        public ICityRepository City { get; private set; }
 
     }
 }

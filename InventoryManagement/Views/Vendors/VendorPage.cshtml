@@ -13,11 +13,11 @@
 @model AccountPayableViewModel
 
 @* MISSION SKILLS PAGE*@
-<div id="CustomerTab">
+<div id="CustomerTab mt-1 mp-1">
     <div class="d-flex align-items-center justify-content-between flex-row mb-2">
-        <h3 class="border-bottom border-4 border-dark">User</h3>
+        <h3 class="border-bottom border-4 border-dark">Vendor Details</h3>
 
-        <button class="bg__colour rounded-pill  bg-white me-2" id="AddUserButton">
+        <button class="bg__colour rounded-pill   me-2" id="AddVendorButton" data-bs-toggle="modal" data-bs-target="#AddVendorModel">
             <span class="me-2"><i class="bi bi-plus-circle"></i></span>Add
         </button>
     </div>
@@ -40,37 +40,37 @@
                 @*@{
                     foreach (var item in Model.VendorsDetails)
                     {
-                        <tr>
-                            <td scope="col">@item.FirstName</td>
-                            <td scope="col">@item.LastName</td>
-                            <td scope="col" id="userEmail">@item.Email</td>
-                            <td scope="col">@item.PhoneNumber</td>
-                            <td scope="col">@item.CountryName</td>
-                            //<td scope="col">@item.StateName</td>
-                            <td scope="col">@item.CityName</td>
+                    <tr>
+                    <td scope="col">@item.FirstName</td>
+                    <td scope="col">@item.LastName</td>
+                    <td scope="col" id="userEmail">@item.Email</td>
+                    <td scope="col">@item.PhoneNumber</td>
+                    <td scope="col">@item.CountryName</td>
+                    //<td scope="col">@item.StateName</td>
+                    <td scope="col">@item.CityName</td>
 
-                            <td>
+                    <td>
 
-                                <button class="border-0 bg-white EditUserButton" value="@item.Id">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                     class="bi bi-pencil-square" style="color: #F88634;pointer-events:none" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fill-rule="evenodd"
-                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                    </svg>
-                                </button>
+                    <button class="border-0 bg-white EditUserButton" value="@item.Id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-pencil-square" style="color: #F88634;pointer-events:none" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                    </button>
 
 
-                                <button class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#DeleteUserModal_@item.Id">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                     class="bi bi-trash3" viewBox="0 0 16 16" style="pointer-events:none">
-                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
+                    <button class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#DeleteUserModal_@item.Id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-trash3" viewBox="0 0 16 16" style="pointer-events:none">
+                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                    </svg>
+                    </button>
+                    </td>
+                    </tr>
                     }
-                }*@
+                    }*@
             </tbody>
         </table>
     </div>
@@ -83,48 +83,8 @@
 
 
 
-<script src="~/js/Inventory.js"></script>
+<script src="~/js/Vendor.js"></script>
 <script>
-    var vendorDtOptions = {
-        scrollY: '60vh',
-        serverSide: true,
-        ajax: {
-            "url": "/AccountPayable/Vendor/GetVendorsDT",
-            "type": "POST",
-            "dataType": "json",
-            "error": function (xhr, status) {
-                console.log("Ajax error : " + xhr.responseText);
-            }
-        },
-        order: [[2, "desc"]],
-        columns: [
-            { "data": "firstName", "name": "nameCat", "width": "20%" },
-            { "data": "lastName", "name": "description", "width": "20%" },
-            { "data": "email", "name": "lastUpdated", "width": "20%" },
-            { "data": "phoneNumber", "name": "phoneNumber", "width": "20%" },
-            { "width": "20%" }
-        ],
-        columnDefs: [
-            {
-                targets: [0, 1],
-                orderable: false
-            },
-            {
-                targets: 4,
-                data: null,
-                orderable: false,
-                render: function (data, type, row, meta) {
-                    //let actionsObj = {
-                    //    "edit": row.categoryId,
-                    //    "delete": row.categoryId
-                    //};
-                    //let actions = GetITActionsHtml(actionsObj);
-                    //return actions;
-                    return "action";
-                }
-            }
-        ]
-    };
 
     let table = new DataTable('#VendorTable', $.extend(datatableOptions, vendorDtOptions));
     $(document).ready(function() {
@@ -133,3 +93,116 @@
     });
     console.log($("#VendorTable"))
 </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="AddVendorModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><span id="AddTextInTitlevendor">Add</span> <span id="UpdateTextInTitleVendor" class="hide">Update</span> Vendor</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="addformbody">
+
+                    <div class="addformdata">
+
+
+                        <input id="VendorId" hidden>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">First Name :</label>
+                                <input type="text" class="form-control" id="FirstName">
+                                <span id="FirstNameValidation" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Last Name :</label>
+                                <input type="text" class="form-control" id="LastName">
+                                <span id="LastNameValidation" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class=col>
+                                <label class="form-label">Email :</label>
+                                <input type="email" class="form-control" id="Email">
+                                <span id="EmailValidation" class="text-danger"></span>
+                            </div>
+                            <div class=col>
+                                <label class="form-label">Phone Number :</label>
+                                <input type="text" placeholder="7080901020" class="form-control" id="PhoneNumber">
+                                <span id="PhoneNumberValidation" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">Country :</label>
+                                <select class="form-select" onchange="GetStatesByCountryId()" id="CountryId" aria-label="Default select example">
+                                    <option value="-1" selected>Select Country</option>
+                                    @foreach (var item in Model.Countries)
+                                    {
+                                        <option value="@item.CountryId">@item.CountryName</option>
+                                    }
+                                </select>
+                                <span id="CountryIdValidation" class="text-danger"></span>
+                            </div>
+                            <div class="col" id="adminStateList">
+                                <label class="form-label">State :</label>
+                                <select class="form-select" onchange="GetCitiesByStateId()" id="StateId" aria-label="Default select example">
+                                    <option value="-1" selected>Select City</option>
+                                    <option disabled>Please select the Country First</option>
+                                </select>
+                                <span id="CityIdValidation" class="text-danger"></span>
+                            </div>
+                            <div class="col" id="adminCityList">
+                                <label class="form-label">City :</label>
+                                <select class="form-select" id="CityId" aria-label="Default select example">
+                                    <option value="-1" selected>Select City</option>
+                                    <option disabled>Please select the State First</option>
+                                </select>
+                                <span id="CityIdValidation" class="text-danger"></span>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-end">
+                    <a asp-action="VendorPage" asp-controller="Vendors" type="button" class="btn border-secondary px-3 py-1 text-secondary  text-center rounded-pill bg-white">Cancel</a>
+                    <button type="submit" onclick="AddOrUpdateVendor()" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+
+
+<div class="modal fade" id="DeleteVendorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete Warning</h5>
+                <button type="button" class="btn-close " id="CloseDeleteModal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="VendorIdForDelete"/>
+                <span class="text-danger">Are you really want to delete this Record? You Can't Revert It Once Done!</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" asp-action="VendorPage" asp-controller="Vendors" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a type="button" onclick="DeleteVendor()"   class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>

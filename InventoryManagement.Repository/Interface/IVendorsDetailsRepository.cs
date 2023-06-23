@@ -9,6 +9,9 @@ namespace InventoryManagement.Repository.Interface
 {
     public interface IVendorsDetailsRepository
     {
-       Task<IEnumerable<VendorsDetails>> GetAllVendorsDetail();
+        Task<(IEnumerable<VendorsDetails>, int)> GetAllVendorsDetail(DataTableFilter model);
+        Task<bool> AddOrUpdateVendor(string VendorObj);
+        Task<VendorsDetails> GetVendorDetailById(long id);
+        Task<bool> DeleteVendor(long id);
     }
 }

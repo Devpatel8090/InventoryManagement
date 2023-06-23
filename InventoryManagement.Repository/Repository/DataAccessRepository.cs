@@ -44,6 +44,11 @@ namespace InventoryManagement.Repository.Repository
            
             await _connection.ExecuteAsync(spName, parameters, commandType: CommandType.StoredProcedure);
         }
+        /*public async Task<string> SaveAndGetData<P>(string spName, P parameters)
+        {
+
+           return await _connection.QueryAsync<dynamic>(spName, parameters, commandType: CommandType.StoredProcedure);
+        }*/
         //public async Task<T> GetSingleValue<T, P>(string spName, P parameters)
         //{
         //    return (T)await _connection.ExecuteScalarAsync(spName, parameters, commandType: CommandType.StoredProcedure);
@@ -51,15 +56,15 @@ namespace InventoryManagement.Repository.Repository
         //}
 
 
-        /*  public  IEnumerable<T> MutlipleQuery<P>(string spName, P parameters)
-          {
-               _connection.QueryMultiple("[dbo].sp_INVCategory_GetCategoriesBySearch", parameters , commandType: CommandType.StoredProcedure)
-          }*/
-        /*public async Task<T> GetSingleData<T, P>(string spName, P parameters)
+        /* public async Task<IEnumerable<T>,S> MutlipleQuery<P>(string spName,P parameters)
+         {
+             return await _connection.QueryMultipleAsync<T,S>(spName,parameters, commandType: CommandType.StoredProcedure);
+           }*/
+        public async Task<T> GetSingleData<T, P>(string spName, P parameters)
         {
 
-            await _connection.QuerySingleOrDefault<T>(spName, parameters, commandType: CommandType.StoredProcedure);
-        }*/
+            return await _connection.QuerySingleOrDefaultAsync<T>(spName, parameters, commandType: CommandType.StoredProcedure);
+        }
 
 
 

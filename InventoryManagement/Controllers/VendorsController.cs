@@ -16,6 +16,8 @@ namespace InventoryManagement.Controllers
         {
             AccountPayableViewModel model = new AccountPayableViewModel();
             model.Countries = await _unitOfWork.Country.GetAllCountries();
+            model.States = await _unitOfWork.State.GetAllStates(); 
+            model.Cities = await _unitOfWork.City.GetAllCities();
             return View(model);
         }
 

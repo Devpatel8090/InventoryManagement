@@ -17,6 +17,21 @@ namespace InventoryManagement.Repository.Repository
             _dataAccess = dataAccess;
         }
 
+
+        public async Task<IEnumerable<State>> GetAllStates()
+        {
+            try
+            {
+                var states = await _dataAccess.GetData<State, dynamic>("sp_INVState_GetAllState", new { });
+                return states;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => ", ex.Message);
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<State>> GetStateByCountry(long countryId)
         {
             try
@@ -29,7 +44,6 @@ namespace InventoryManagement.Repository.Repository
                 Console.WriteLine("Error => ", ex.Message);
                 return null;
             }
-
         }
     }
 }

@@ -17,6 +17,20 @@ namespace InventoryManagement.Repository.Repository
 
             _dataAccess = dataAccess;
         }
+        public async Task<IEnumerable<City>> GetAllCities()
+        {
+            try
+            {
+                var cities = await _dataAccess.GetData<City, dynamic>("sp_INVCity_GetAllCity", new { });
+                return cities;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => ", ex.Message);
+                return null;
+            }
+
+        }
         public async Task<IEnumerable<City>> GetCityByState(long stateId)
         {
             try

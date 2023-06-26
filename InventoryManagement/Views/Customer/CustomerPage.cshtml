@@ -13,17 +13,17 @@
 @model AccountPayableViewModel
 
 @* MISSION SKILLS PAGE*@
-<div id="VendorTab mt-1 mp-1">
+<div id="CustomerTab mt-1 mp-1">
     <div class="d-flex align-items-center justify-content-between flex-row mb-2">
-        <h3 class="border-bottom border-4 border-dark">Vendor Details</h3>
+        <h3 class="border-bottom border-4 border-dark">Customer Details</h3>
 
-        <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2"  style="background-color: #98EECC;" id="AddVendorButton" data-bs-toggle="modal" data-bs-target="#AddVendorModel">
+        <button class="rounded-pill border-0 p-1 px-2  me-2" style="background-color: #98EECC;" id="AddCustomerButton" data-bs-toggle="modal" data-bs-target="#AddCustomerModel">
             <span class="me-2"><i class="bi bi-plus-circle"></i></span>Add
         </button>
     </div>
     <hr />
     <div class="table-responsive">
-        <table class="table border DataTablesId" id="VendorTable" style="width:100%">
+        <table class="table border DataTablesId" id="CustomerTable" style="width:100%">
             <thead style="background-color: #f9f9f9;">
                 <tr>
                     <th scope="col">First Name</th>
@@ -83,33 +83,30 @@
 
 
 
-<script src="~/js/Vendor.js"></script>
+<script src="~/js/Customer.js"></script>
 <script>
 
-    let table = new DataTable('#VendorTable', $.extend(datatableOptions, vendorDtOptions));
+    let table = new DataTable('#CustomerTable', $.extend(datatableOptions, customerDtOptions));
     $(document).ready(function() {
 
-        $('#AccountPayableTab').addClass("active");
+        $('#AccountReceivableTab').addClass("active");
     });
-    console.log($("#VendorTable"))
+    console.log($("#CustomerTable"))
 </script>
 
 
 <!-- Modal -->
-<div class="modal fade" id="AddVendorModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="AddCustomerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"><span id="AddTextInTitle">Add</span> <span id="UpdateTextInTitle" class="hide">Update</span> Vendor</h5>
+                <h5 class="modal-title" id="staticBackdropLabel"><span id="AddTextInTitle">Add</span> <span id="UpdateTextInTitle" class="hide">Update</span> Customer</h5>
 
             </div>
             <div class="modal-body">
                 <div class="addformbody">
-
                     <div class="addformdata">
-
-
-                        <input id="VendorId" hidden>
+                        <input id="CustomerId" hidden>
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label">First Name :</label>
@@ -134,56 +131,14 @@
                                 <span id="PhoneNumberValidation" class="text-danger"></span>
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label class="form-label">Country :</label>
-                                <select class="form-select" oninput="GetStatesByCountryId()" id="CountryId" aria-label="Default select example">
-                                    <option value="-1" selected>Select Country</option>
-                                    @foreach (var item in Model.Countries)
-                                    {
-                                        <option value="@item.CountryId">@item.CountryName</option>
-                                    }
-                                </select>
-                                <span id="CountryIdValidation" class="text-danger"></span>
-                            </div>
-                            <div class="col" id="adminStateList">
-                                <label class="form-label">State :</label>
-                                <select class="form-select" onchange="GetCitiesByStateId()" id="StateId" aria-label="Default select example">
-                                    <option value="-1" selected>Select State</option>
-                                    <option disabled>Please select the Country First</option>
-                                    @foreach (var item in Model.States)
-                                    {
-                                        <option value="@item.StateId">@item.StateName</option>
-                                    }                             
-                                </select>
-                                <span id="CityIdValidation" class="text-danger"></span>
-                            </div>
-                            <div class="col" id="adminCityList">
-                                <label class="form-label">City :</label>
-                                <select class="form-select" id="CityId" aria-label="Default select example">
-                                    <option value="-1" selected>Select City</option>
-                                    <option disabled>Please select the State First</option>
-                                    @foreach (var item in Model.Cities)
-                                    {
-                                        <option value="@item.CityId">@item.CityName</option>
-                                    }  
-                                </select>
-                                <span id="CityIdValidation" class="text-danger"></span>
-                            </div>
-
-
-                        </div>
-
-
                     </div>
-
                 </div>
             </div>
+
             <div class="modal-footer">
                 <div class="text-end">
-                    <a asp-action="VendorPage" asp-controller="Vendors" type="button" class="btn border-secondary px-3 py-1 text-secondary  text-center rounded-pill bg-white">Cancel</a>
-                    <button type="submit" onclick="AddOrUpdateVendor()" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white">Submit</button>
+                    <a asp-action="CustomerPage" asp-controller="Customer" id="CancelButtonCustomer" type="button" class="btn border-secondary px-3 py-1 text-secondary  text-center rounded-pill bg-white">Cancel</a>
+                    <button type="submit" onclick="AddOrUpdateCustomer()" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white">Submit</button>
                 </div>
             </div>
         </div>
@@ -193,10 +148,11 @@
 
 
 
+
 <!-- Modal -->
 
 
-<div class="modal fade" id="DeleteVendorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="DeleteCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,12 +160,12 @@
                 <button type="button" class="btn-close " id="CloseDeleteModal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="number" id="VendorIdForDelete" hidden/>
+                <input type="number" id="CustomerIdForDelete" hidden />
                 <span class="text-danger">Are you really want to delete this Record? You Can't Revert It Once Done!</span>
             </div>
             <div class="modal-footer">
                 <button type="button" asp-action="VendorPage" asp-controller="Vendors" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <a type="button" onclick="DeleteVendor()"   class="btn btn-danger">Yes</a>
+                <a type="button" onclick="DeleteCustomer()" class="btn btn-danger">Yes</a>
             </div>
         </div>
     </div>

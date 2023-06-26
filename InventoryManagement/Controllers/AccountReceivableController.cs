@@ -15,5 +15,6 @@ namespace InventoryManagement.Controllers
         {
             return View();
         }
+        
     }
 }

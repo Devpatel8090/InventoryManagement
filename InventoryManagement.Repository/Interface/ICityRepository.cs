@@ -12,5 +12,6 @@ namespace InventoryManagement.Repository.Interface
     public interface ICityRepository
     {
         Task<IEnumerable<City>> GetCityByState(long stateId);
+        Task<IEnumerable<City>> GetAllCities();
     }
 }

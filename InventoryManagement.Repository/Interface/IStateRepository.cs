@@ -10,5 +10,6 @@ namespace InventoryManagement.Repository.Interface
     public interface IStateRepository
     {
         Task<IEnumerable<State>> GetStateByCountry(long countryId);
+         Task<IEnumerable<State>> GetAllStates();
     }
 }

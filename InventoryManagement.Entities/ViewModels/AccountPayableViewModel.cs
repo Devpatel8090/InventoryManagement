@@ -12,5 +12,7 @@ namespace InventoryManagement.Entities.ViewModels
         public VendorsDetails VendorDetail { get; set; }
         public IEnumerable<VendorsDetails> VendorsDetails { get; set; } = Enumerable.Empty<VendorsDetails>();
         public IEnumerable<Country> Countries { get; set; } = Enumerable.Empty<Country>();
+        public IEnumerable<City> Cities { get; set; } = Enumerable.Empty<City>();
+        public IEnumerable<State> States { get; set; } = Enumerable.Empty<State>();
     }
 }

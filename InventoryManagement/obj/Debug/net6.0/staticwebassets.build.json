@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rlHlzk9z1VbGkC4zYlyg2WWvjF3OYxpwYa3ngq73Jz4=",
+  "Hash": "SC1zwAUyKe35Uf6HDF4I1KeVgUzKhx2xOyi8h56Phbw=",
   "Source": "InventoryManagement",
   "BasePath": "_content/InventoryManagement",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\Customer.js",
+      "SourceId": "InventoryManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\",
+      "BasePath": "_content/InventoryManagement",
+      "RelativePath": "js/Customer.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Customer.js"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\Inventory.js",

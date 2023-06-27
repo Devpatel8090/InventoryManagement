@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SC1zwAUyKe35Uf6HDF4I1KeVgUzKhx2xOyi8h56Phbw=",
+  "Hash": "Jst6o4lqV6/k+oBeWJKW4FRRkJezXN/D3sgMmVAlin8=",
   "Source": "InventoryManagement",
   "BasePath": "_content/InventoryManagement",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Inventory.js"
+    },
+    {
+      "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\PurchaseInvoice.js",
+      "SourceId": "InventoryManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\",
+      "BasePath": "_content/InventoryManagement",
+      "RelativePath": "js/PurchaseInvoice.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\PurchaseInvoice.js"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\InventoryManagement\\InventoryManagement\\wwwroot\\js\\site.js",

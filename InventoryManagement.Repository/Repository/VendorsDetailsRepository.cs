@@ -20,6 +20,21 @@ namespace InventoryManagement.Repository.Repository
 
             _dataAccess = dataAccess;
         }
+
+        public async Task<IEnumerable<VendorsDetails>> GetAllVendorsWithoutFilter()
+        {
+            try
+            {
+                var vendors = await _dataAccess.GetData<VendorsDetails, dynamic>("sp_INVVendorsDetails_GetAllVendorDetails", new { });
+                return vendors;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                return null;
+            }
+            
+        }
         public async Task<(IEnumerable<VendorsDetails>, int)> GetAllVendorsDetail(DataTableFilter model)
         {
             using (var connection = _dataAccess.CreateConnection())

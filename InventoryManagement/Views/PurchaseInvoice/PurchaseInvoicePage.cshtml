@@ -1,0 +1,189 @@
+﻿@using InventoryManagement.Entities.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+
+    ViewData["Title"] = "";
+    Layout = "~/Views/Shared/_INVManagementLayout.cshtml";
+}
+@model AccountPayableViewModel
+<div>
+    <div class="text-center fw-bold fs-4">Purhcase Invoice</div>
+    <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2">Add New</button>
+    <div>
+        <div>
+            <div class="d-flex flex-row align-items-center justify-content-between gap-3 ">
+                <div class="col-7">
+                    <label class="form-label">Vendor :</label>
+                    <select class="form-select" onchange="FillDetailsOfVendorInInvoice()" id="VendorSelectDropDown" aria-label="Default select example">
+                        <option value="-1" selected>Select Vendor</option>
+                        @foreach (var item in Model.VendorsDetails)
+                        {
+                            <option value="@item.Id">@item.Id &nbsp;&nbsp; @item.FirstName &nbsp; @item.LastName</option>
+                        }
+                    </select>
+                    <div class="mt-1">
+                        <textarea class="form-control" id="VendorDetailTextArea" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class=" col-3 d-flex flex-column align-items-center justify-content-center mt-5 ">
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">DocumentNo</span>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
+                        <input type="date" min="" id="purchaseDate" class="form-control">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Reference</span>
+                        <input type="text" class="form-control">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div>
+        <button data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Order</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">ItemName</th>
+                    
+                    <th scope="col">Qty</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody id="tableData">
+                
+
+            </tbody>
+        </table>
+        @*<div class="table">
+            <div class="row">
+            <div class="cell">
+            Mike
+            </div>
+            <div class="cell">
+            36 years
+            </div>
+            <div class="cell">
+            Architect
+            </div>
+            </div>
+            <div class="row">
+            <div class="cell">
+            Sunil
+            </div>
+            <div class="cell">
+            45 years
+            </div>
+            <div class="cell">
+            Vice President
+            </div>
+            </div>
+            <div class="row">
+            <div class="cell">
+            Jason
+            </div>
+            <div class="cell">
+            27 years
+            </div>
+            <div class="cell">
+            Junior Developer
+            </div>
+            </div>
+
+            </div>*@
+    </div>
+
+    <div class="col d-flex flex-row">
+
+        <div class="col-8">
+        </div>
+        <div class="col-4 d-flex flex-column align-items-end justify-content-end">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">sub total</span>
+                <input  id="SubTotal" type="text" class="form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
+                <input type="number" oninput="GetDiscount()" id="DiscountValue" min="0" max="100" class="form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Total</span>
+                <input type="text" id="TotalAmount" class="form-control">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/js/PurchaseInvoice.js" />
+<script>
+    $(document).ready(function() {
+
+        $('#AccountPayableTab').addClass("active");
+    });
+</script>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select class="form-select" id="ItemSelectDropDown" onchange="FillTheQtyAndPrice()" aria-label="Default select example">
+                    <option value="-1" selected>Select item</option>
+                    @foreach (var item in Model.Items)
+                    {
+                        <option value="@item.ItemId">@item.ItemName</option>
+                    }
+                </select>
+                <div class="input-group input-group-sm mb-3 mt-3">
+                    <span class="input-group-text" >Qty</span>
+                    <input type="text" oninput="GetTotalAmount()" id="ItemQuantity" class="form-control">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" >Price</span>
+                    <input oninput="GetTotalAmount()" type="text" id="ItemPrice" class="form-control">
+                </div>
+
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" >Amount</span>
+                    <input type="text" id="ItemAmount" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="AddEntryInData()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

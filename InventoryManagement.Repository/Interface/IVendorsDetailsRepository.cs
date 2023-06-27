@@ -13,5 +13,6 @@ namespace InventoryManagement.Repository.Interface
         Task<bool> AddOrUpdateVendor(string VendorObj);
         Task<VendorsDetails> GetVendorDetailById(long id);
         Task<bool> DeleteVendor(long id);
+        Task<IEnumerable<VendorsDetails>> GetAllVendorsWithoutFilter();
     }
 }

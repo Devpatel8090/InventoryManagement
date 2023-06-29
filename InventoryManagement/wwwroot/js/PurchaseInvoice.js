@@ -1,4 +1,6 @@
-﻿function FillDetailsOfVendorInInvoice() {
+﻿
+
+function FillDetailsOfVendorInInvoice() {
     var vendorId = $("#VendorSelectDropDown").val();
     $.ajax({
         url: "/Vendors/GetVendorDetailById?id=" + vendorId,
@@ -35,7 +37,7 @@ if (mm < 10) {
 
 today = yyyy + '-' + mm + '-' + dd;
 document.getElementById("purchaseDate").setAttribute("min", today);
-
+$('#AccountPayableTab').addClass("active");
 
 /*var table = document.getElementById("table"), sumVal = 0;
 
@@ -49,7 +51,7 @@ function SubTotal() {
     const tableRows = document.getElementsByTagName('tr');
     var sumVal = 0;
     for (var i = 1; i < tableRows.length; i++) {
-        sumVal += parseInt(tableRows[i].cells[3].innerHTML);
+        sumVal += parseInt(tableRows[i].cells[4].innerHTML);
     }
     console.log(tableRows);
     console.log(sumVal);
@@ -89,7 +91,9 @@ function GetTotalAmount() {
     var qty = $('#ItemQuantity').val();
     var price = $('#ItemPrice').val();
     var amount = qty * price;
+    $('#DiscountValue').val(0);
     $('#ItemAmount').val(amount);
+    
 }
 
 var arr = [];
@@ -100,25 +104,16 @@ function AddEntryInData() {
     var obj = {
         qty: $('#ItemQuantity').val(),
         price: $('#ItemPrice').val(),
-        amount: $('#ItemAmount').val()
+        amount: $('#ItemAmount').val(),
+        itemId: $('#ItemSelectDropDown').val()
     };
     console.log(obj);
     arr[itemName] = obj;
     console.log(arr);
     console.log(arr.length);
-    console.log(Reflect.ownKeys(arr).length);
-    var lenthofArray = Reflect.ownKeys(arr).length;
+ 
     var items = '';
-    /*for (var i = 0; i < lenthofArray - 1; i++) {
-      item = `  <tr>
-       < td > ${arr[0].id}</td >
-                    <td>${arr[itemName].id}</td>
-                    <td>Otto</td>
-                    <td>Otto</td>
-            <td>Otto</td>
-        </tr>`
-        items += item;
-    }*/
+  
 
     for (var key in arr) {
         if (arr.hasOwnProperty(key)) {
@@ -126,7 +121,8 @@ function AddEntryInData() {
             // Printing Keys
             console.log(key);
             item = `  <tr>
-                    <td>${key}</td>
+                    <td>${arr[key].itemId}</td>
+                    <td>${key}</td>                  
                     <td> ${arr[key].qty}</td>
                     <td>${arr[key].price}</td>
                     <td>${arr[key].amount}</td>
@@ -138,13 +134,78 @@ function AddEntryInData() {
     console.log(items);
     $('#tableData').html(items);
     SubTotal();
+    GetDiscount();
 }
 
 function GetDiscount() {
     var discountValue = $('#DiscountValue').val();
-    var subTotal = $('#SubTotal').val(sumVal);
-    var amount = subTotal - ((subTotal * discountValue) / 100);
+    var subTotal = $('#SubTotal').val();
+    var discountRupees = ((subTotal * discountValue) / 100);
+    var amount = subTotal - discountRupees;
 
     $('#TotalAmount').val(amount);
+    $('#DiscountValueInRupee').val((-discountRupees));
 
+}
+
+function AddRecordInPurchaseItem() {
+    var vendorId = $("#VendorSelectDropDown").val();
+    var documentNo = $('#documentNumber').val();
+    var purchaseDate = $('#purchaseDate').val();
+    var reference = $('#Reference').val();
+    var subTotal = $('#SubTotal').val();
+    var totalAmount = $('#TotalAmount').val();
+    var discount = $('#DiscountValue').val();
+    const tableRows = document.getElementsByTagName('tr');
+    var tableData = [];
+
+    var oTable = document.getElementById('tableData');
+
+    //gets rows of table
+    var rowLength = oTable.rows.length;
+
+    //loops through rows    
+    for (i = 0; i < rowLength; i++) {
+
+        //gets cells of current row
+        var oCells = oTable.rows.item(i).cells;
+
+        var object = {
+            "Id": oCells.item(0).innerHTML,
+            "Qty": oCells.item(2).innerHTML,
+            "Price": oCells.item(3).innerHTML,
+            "Amount": oCells.item(4).innerHTML
+        }
+        tableData[i] = object;
+    }
+
+    var purchaseObj = {
+        vendorId: vendorId,
+        documentNo: documentNo,
+        purchaseDate: purchaseDate,
+        reference: reference,
+        subTotal: subTotal,
+        discount: discount,
+        totalAmount: totalAmount,  
+        tableData: tableData
+    }
+
+    $.ajax({
+        url: '/PurchaseInvoice/AddPurchaseInvoiceData?purchseObj=' + JSON.stringify(purchaseObj),
+        type:'POST',
+        success: function (data) {
+            console.log(data);
+            if (data) {
+                toastr.success("Stock added  successfully");
+                setTimeout(function () { location.reload(); }, 1000);
+            }
+            else {
+                toastr.error("sorry Please Try Again");
+            }           
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+    
 }

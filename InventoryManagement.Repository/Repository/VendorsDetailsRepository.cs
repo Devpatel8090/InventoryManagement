@@ -35,6 +35,8 @@ namespace InventoryManagement.Repository.Repository
             }
             
         }
+        
+        
         public async Task<(IEnumerable<VendorsDetails>, int)> GetAllVendorsDetail(DataTableFilter model)
         {
             using (var connection = _dataAccess.CreateConnection())

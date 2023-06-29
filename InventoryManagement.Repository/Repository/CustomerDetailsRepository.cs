@@ -47,6 +47,21 @@ namespace InventoryManagement.Repository.Repository
                 }
             }
         }
+
+        public async Task<IEnumerable<CustomerDetail>> GetAllCustomersWithoutFilter()
+        {
+            try
+            {
+                var customers = await _dataAccess.GetData<CustomerDetail, dynamic>("sp_IINVCustomerDetails_GetCustomerAllCustomerWithoutFilter", new { });
+                return customers;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                return null;
+            }
+
+        }
         public async Task<bool> AddOrUpdateCustomer(string customerObj)
         {
             try

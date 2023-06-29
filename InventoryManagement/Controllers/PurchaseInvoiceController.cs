@@ -21,5 +21,19 @@ namespace InventoryManagement.Controllers
             };
             return View(model);
         }
+        [HttpPost]
+        public async Task<bool> AddPurchaseInvoiceData(string purchseObj)
+        {
+            var isDone = await _unitOfWork.PurchaseInvoice.AddOrUpdatePurchaseInvoice(purchseObj);
+            if (isDone)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
     }
 }

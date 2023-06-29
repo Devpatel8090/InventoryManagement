@@ -11,6 +11,7 @@ namespace InventoryManagement.Repository.Interface
     public interface ICustomerDetailsRepository
     {
         Task<(IEnumerable<CustomerDetail>, int)> GetAllCustomerDetails(DataTableFilter model);
+        Task<IEnumerable<CustomerDetail>> GetAllCustomersWithoutFilter();
         Task<bool> AddOrUpdateCustomer(string customerObj);
         Task<CustomerDetail> GetCustomerDetailById(long id);
         Task<bool> DeleteCustomer(long id);

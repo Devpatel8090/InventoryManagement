@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Repository.Interface;
+﻿using InventoryManagement.Entities.ViewModels;
+using InventoryManagement.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagement.Controllers
@@ -11,9 +12,15 @@ namespace InventoryManagement.Controllers
             _unitOfWork = unitOfWork;
 
         }
-        public IActionResult SalesInvoice()
+        public async  Task<IActionResult> SalesInvoicePage()
         {
-            return View();
+            AccountReceivableViewModel model = new AccountReceivableViewModel()
+            {
+                customers = await _unitOfWork.CustomerDetails.GetAllCustomersWithoutFilter(),
+                Items = await _unitOfWork.InventoryItems.GetInventoryItems(),
+            };
+            return View(model);
+           
         }
     }
 }

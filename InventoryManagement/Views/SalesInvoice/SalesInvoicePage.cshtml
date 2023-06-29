@@ -9,7 +9,7 @@
     ViewData["Title"] = "";
     Layout = "~/Views/Shared/_INVManagementLayout.cshtml";
 }
-@model AccountPayableViewModel
+@model AccountReceivableViewModel
 <div>
     <div class="text-center fw-bold fs-4">Purhcase Invoice</div>
     <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 text-center" onclick="AddRecordInPurchaseItem()">Record</button>
@@ -22,7 +22,7 @@
                         <option value="-1" selected>Select Vendor</option>
                         @*<option><input type="text" id="VendorSearch"/></option>*@
 
-                        @foreach (var item in Model.VendorsDetails)
+                        @foreach (var item in Model.customers)
                         {
                             <option value="@item.Id">@item.Id &nbsp;&nbsp; @item.FirstName &nbsp; @item.LastName</option>
                         }
@@ -56,7 +56,7 @@
 
 
     <div>
-        <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Order</button>
+        <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2" data-bs-toggle="modal" data-bs-target="#SalesInvoiceModal">Add Order</button>
         <table class="table">
             <thead>
                 <tr>
@@ -122,12 +122,12 @@
                 <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
                 <span class=" ms-2 input-group-text" id="inputGroup-sizing-sm">%</span>
                 <input type="number" oninput="GetDiscount()" id="DiscountValue" min="0" max="100" class="form-control">
-                 <span class=" ms-2 input-group-text" id="inputGroup-sizing-sm">Rs</span>
-                <input type="number" id="DiscountValueInRupee"  class="form-control" disabled>
+                <span class=" ms-2 input-group-text" id="inputGroup-sizing-sm">Rs</span>
+                <input type="number" id="DiscountValueInRupee" class="form-control" disabled>
             </div>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Total</span>
-                <input type="text" id="TotalAmount" disabled class="form-control" >
+                <input type="text" id="TotalAmount" disabled class="form-control">
             </div>
 
         </div>
@@ -143,13 +143,11 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="~/js/PurchaseInvoice.js" > </script>
-
-
+<script src="~/js/SalesInvoice.js" > </script>
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="SalesInvoiceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content ">
             <div class="modal-header">
@@ -159,10 +157,10 @@
             <div class="modal-body">
                 <select class="form-select" id="ItemSelectDropDown" onchange="FillTheQtyAndPrice()" aria-label="Default select example">
                     <option value="-1" selected>Select item</option>
-                    @foreach (var item in Model.Items)
-                    {
+    @foreach (var item in Model.Items)
+    {
                         <option value="@item.ItemId">@item.ItemName</option>
-                    }
+    }
                 </select>
                 <div class="input-group input-group-sm mb-3 mt-3">
                     <span class="input-group-text">Qty</span>

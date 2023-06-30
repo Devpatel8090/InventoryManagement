@@ -17,7 +17,8 @@ namespace InventoryManagement.Entities.Model
 
         public long CategoryId { get; set; }
 
-        public string CategoryName { get; set; }    
+        public string CategoryName { get; set; }  
+        public long Quantity { get; set; }
         
 
         public Boolean IsActive { get; set; }

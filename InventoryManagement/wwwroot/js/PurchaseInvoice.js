@@ -62,29 +62,29 @@ function SubTotal() {
 function FillTheQtyAndPrice() {
     var id = $('#ItemSelectDropDown').val();
     var itemName = $("#ItemSelectDropDown option:selected").text();
-    
 
 
-        for (var key in arr) {
+
+    for (var key in arr) {
 
 
-            if (key == itemName) {
-                $('#ItemQuantity').val(arr[key].qty);
-                $('#ItemPrice').val(arr[key].price);
-                $('#ItemAmount').val(arr[key].amount);
-                break;
+        if (key == itemName) {
+            $('#ItemQuantity').val(arr[key].qty);
+            $('#ItemPrice').val(arr[key].price);
+            $('#ItemAmount').val(arr[key].amount);
+            break;
 
-            } else {
-                $('#ItemQuantity').val(0);
-                $('#ItemPrice').val(0);
-                $('#ItemAmount').val(0);
-
-            }
+        } else {
+            $('#ItemQuantity').val(0);
+            $('#ItemPrice').val(0);
+            $('#ItemAmount').val(0);
 
         }
-    
 
-   
+    }
+
+
+
 }
 
 function GetTotalAmount() {
@@ -93,7 +93,7 @@ function GetTotalAmount() {
     var amount = qty * price;
     $('#DiscountValue').val(0);
     $('#ItemAmount').val(amount);
-    
+
 }
 
 var arr = [];
@@ -101,40 +101,42 @@ var arr = [];
 
 function AddEntryInData() {
     var itemName = $("#ItemSelectDropDown option:selected").text();
-    var obj = {
-        qty: $('#ItemQuantity').val(),
-        price: $('#ItemPrice').val(),
-        amount: $('#ItemAmount').val(),
-        itemId: $('#ItemSelectDropDown').val()
-    };
-    console.log(obj);
-    arr[itemName] = obj;
-    console.log(arr);
-    console.log(arr.length);
- 
-    var items = '';
-  
+    if (PurchaseItemValidation()) {
+        var obj = {
+            qty: $('#ItemQuantity').val(),
+            price: $('#ItemPrice').val(),
+            amount: $('#ItemAmount').val(),
+            itemId: $('#ItemSelectDropDown').val()
+        };
+        console.log(obj);
+        arr[itemName] = obj;
+        console.log(arr);
+        console.log(arr.length);
 
-    for (var key in arr) {
-        if (arr.hasOwnProperty(key)) {
+        var items = '';
 
-            // Printing Keys
-            console.log(key);
-            item = `  <tr>
+
+        for (var key in arr) {
+            if (arr.hasOwnProperty(key)) {
+
+                // Printing Keys
+                console.log(key);
+                item = `  <tr>
                     <td>${arr[key].itemId}</td>
                     <td>${key}</td>                  
                     <td> ${arr[key].qty}</td>
                     <td>${arr[key].price}</td>
                     <td>${arr[key].amount}</td>
                 </tr>`
-            items += item;
+                items += item;
 
+            }
         }
+        console.log(items);
+        $('#tableData').html(items);
+        SubTotal();
+        GetDiscount();
     }
-    console.log(items);
-    $('#tableData').html(items);
-    SubTotal();
-    GetDiscount();
 }
 
 function GetDiscount() {
@@ -145,6 +147,27 @@ function GetDiscount() {
 
     $('#TotalAmount').val(amount);
     $('#DiscountValueInRupee').val((-discountRupees));
+
+}
+
+function PurchaseItemValidation() {
+    var qty = $('#ItemQuantity').val();
+    var price = $('#ItemPrice').val();
+    var itemId = $('#ItemSelectDropDown').val();
+    var flag = true;
+    if (itemId < 1 || itemId == "") {
+        flag = false;
+        toastr.error("Please Select The Item");
+    }
+    if (price < 0 || price == "") {
+        flag = false;
+        toastr.error("Please enter positive price");
+    }
+    if (qty < 0 || qty == "") {
+        flag = false;
+        toastr.error("Please enter positive qunatity");
+    }
+    return flag;
 
 }
 
@@ -186,13 +209,13 @@ function AddRecordInPurchaseItem() {
         reference: reference,
         subTotal: subTotal,
         discount: discount,
-        totalAmount: totalAmount,  
+        totalAmount: totalAmount,
         tableData: tableData
     }
 
     $.ajax({
         url: '/PurchaseInvoice/AddPurchaseInvoiceData?purchseObj=' + JSON.stringify(purchaseObj),
-        type:'POST',
+        type: 'POST',
         success: function (data) {
             console.log(data);
             if (data) {
@@ -201,11 +224,11 @@ function AddRecordInPurchaseItem() {
             }
             else {
                 toastr.error("sorry Please Try Again");
-            }           
+            }
         },
         error: function (error) {
             console.log(error);
         }
     })
-    
+
 }

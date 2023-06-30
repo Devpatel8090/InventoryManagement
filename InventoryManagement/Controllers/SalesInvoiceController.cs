@@ -22,5 +22,19 @@ namespace InventoryManagement.Controllers
             return View(model);
            
         }
+        [HttpPost]
+        public async Task<bool> AddSalesInvoiceData(string salesObj)
+        {
+            var isDone = await _unitOfWork.SalesInvoice.AddOrUpdateSalesInvoice(salesObj);
+            if (isDone)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }

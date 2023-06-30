@@ -11,15 +11,15 @@
 }
 @model AccountReceivableViewModel
 <div>
-    <div class="text-center fw-bold fs-4">Purhcase Invoice</div>
-    <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 text-center" onclick="AddRecordInPurchaseItem()">Record</button>
+    <div style="color:#20B2AA" class="text-center fw-bold fs-4">Sales Invoice</div>
+    <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 text-center" onclick="AddRecordInSalesItem()">Record</button>
     <div>
         <div>
             <div class="d-flex flex-row align-items-center justify-content-between gap-3 ">
                 <div class="col-7">
                     <label class="form-label">Vendor :</label>
-                    <select class="form-select" onchange="FillDetailsOfVendorInInvoice()" id="VendorSelectDropDown" aria-label="Default select example">
-                        <option value="-1" selected>Select Vendor</option>
+                    <select class="form-select" onchange="FillDetailsOfCustomerInInvoice()" id="CustomerSelectDropDown" aria-label="Default select example">
+                        <option value="-1" selected>Select customer</option>
                         @*<option><input type="text" id="VendorSearch"/></option>*@
 
                         @foreach (var item in Model.customers)
@@ -29,7 +29,7 @@
 
                     </select>
                     <div class="mt-1">
-                        <textarea class="form-control" id="VendorDetailTextArea" rows="3"></textarea>
+                        <textarea class="form-control" id="CustomerDetailTextArea" rows="3"></textarea>
                     </div>
                 </div>
                 <div class=" col-3 d-flex flex-column align-items-center justify-content-center mt-5 ">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
-                        <input type="date" min="" id="purchaseDate" class="form-control">
+                        <input type="date" min="" id="salesDate" class="form-control">
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Reference</span>
@@ -116,7 +116,7 @@
         <div class="col-4 d-flex flex-column align-items-end justify-content-end">
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">sub total</span>
-                <input id="SubTotal" type="text" class="form-control">
+                <input id="SubTotal" disabled type="text" class="form-control">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
@@ -143,7 +143,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="~/js/SalesInvoice.js" > </script>
+<script src="~/js/SalesInvoice.js"> </script>
 
 
 <!-- Modal -->
@@ -157,18 +157,22 @@
             <div class="modal-body">
                 <select class="form-select" id="ItemSelectDropDown" onchange="FillTheQtyAndPrice()" aria-label="Default select example">
                     <option value="-1" selected>Select item</option>
-    @foreach (var item in Model.Items)
-    {
+                    @foreach (var item in Model.Items)
+                    {
                         <option value="@item.ItemId">@item.ItemName</option>
-    }
+                    }
                 </select>
-                <div class="input-group input-group-sm mb-3 mt-3">
-                    <span class="input-group-text">Qty</span>
-                    <input type="text" oninput="GetTotalAmount()" id="ItemQuantity" class="form-control">
+                <div class="input-group input-group-sm  mt-3 ">
+                    
+                        <span class="input-group-text">Qty</span>
+                        <input type="number" oninput="GetTotalAmount()" id="ItemQuantity" class="form-control">
+                    
+                   
                 </div>
-                <div class="input-group input-group-sm mb-3">
+                 <div   id="TotatStockText" class="text-danger hide">Total Stock Of Item:<span class="ms-2 text-danger" id="MaximumQuantityData"></span></div>
+                <div class="input-group input-group-sm mt-3 mb-3">
                     <span class="input-group-text">Price</span>
-                    <input oninput="GetTotalAmount()" type="text" id="ItemPrice" class="form-control">
+                    <input oninput="GetTotalAmount()" type="number" id="ItemPrice" class="form-control">
                 </div>
 
                 <div class="input-group input-group-sm mb-3">

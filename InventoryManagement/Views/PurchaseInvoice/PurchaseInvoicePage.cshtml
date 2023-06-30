@@ -11,7 +11,7 @@
 }
 @model AccountPayableViewModel
 <div>
-    <div class="text-center fw-bold fs-4">Purhcase Invoice</div>
+    <div style="color:#20B2AA" class="text-center fw-bold fs-4">Purchase Invoice</div>
     <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 text-center" onclick="AddRecordInPurchaseItem()">Record</button>
     <div>
         <div>
@@ -116,7 +116,7 @@
         <div class="col-4 d-flex flex-column align-items-end justify-content-end">
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">sub total</span>
-                <input id="SubTotal" type="text" class="form-control">
+                <input id="SubTotal" disabled type="text" class="form-control">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
@@ -166,11 +166,12 @@
                 </select>
                 <div class="input-group input-group-sm mb-3 mt-3">
                     <span class="input-group-text">Qty</span>
-                    <input type="text" oninput="GetTotalAmount()" id="ItemQuantity" class="form-control">
+                    <input type="number" oninput="GetTotalAmount()" id="ItemQuantity" class="form-control">
+                    
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text">Price</span>
-                    <input oninput="GetTotalAmount()" type="text" id="ItemPrice" class="form-control">
+                    <input oninput="GetTotalAmount()" type="number" id="ItemPrice" class="form-control">
                 </div>
 
                 <div class="input-group input-group-sm mb-3">

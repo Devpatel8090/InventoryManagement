@@ -66,5 +66,21 @@ namespace InventoryManagement.Repository.Repository
 
             }
         }
+
+        public async Task<string> GetDocumentNumber()
+        {
+            try
+            {
+                var docNum = await _dataAccess.GetSingleData<string, dynamic>("sp_INVPurchaseInvoice_GetDocumentNumber", new {});
+                return docNum;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                return null;
+
+            }
+        }
     }
 }

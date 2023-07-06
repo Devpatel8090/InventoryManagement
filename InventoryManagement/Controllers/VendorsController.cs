@@ -2,6 +2,7 @@
 using InventoryManagement.Entities.ViewModels;
 using InventoryManagement.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace InventoryManagement.Controllers
 {
@@ -58,7 +59,14 @@ namespace InventoryManagement.Controllers
         public async Task<JsonResult> GetVendorDetailById(long id)
         {
             var vendorDetail = await _unitOfWork.VendorsDetails.GetVendorDetailById(id);
-            return Json(vendorDetail);
+            vendorDetail.DocumentNumber = await _unitOfWork.PurchaseInvoice.GetDocumentNumber();
+             return Json(vendorDetail);
+
+        }
+        public async Task<IActionResult> GetVendorOrders(long id)
+        {
+            return RedirectToAction("VendorOrders", "PurchaseInvoice");
+
         }
 
         public async Task<IActionResult> DeleteVendor(long id)

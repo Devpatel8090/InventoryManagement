@@ -1,4 +1,5 @@
-﻿using InventoryManagement.Entities.ViewModels;
+﻿using InventoryManagement.Entities.Model;
+using InventoryManagement.Entities.ViewModels;
 using InventoryManagement.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,5 +36,23 @@ namespace InventoryManagement.Controllers
             }
             
         }
+
+        public IActionResult VendorOrders()
+        {
+            AccountPayableViewModel model = new AccountPayableViewModel();           
+            return View();
+        }
+
+        [Route("AccountPayable/PurchaseInvoice/GetPurchaseOrdersByVendor")]
+        [HttpPost]
+        public async Task<IActionResult> GetPurchaseOrdersByVendor(int id)
+        {
+            DataTableFilter filter = new DataTableFilter(Request);
+            var (VendorsDetails, totalCount) = await _unitOfWork.VendorsDetails.GetVendorOrders(id);
+            DataTable<purchaseOrderDetails> VendorsOrderDt = new DataTable<purchaseOrderDetails>(VendorsDetails.ToList(), totalCount);
+            return Json(VendorsOrderDt);
+        }
+
+
     }
 }

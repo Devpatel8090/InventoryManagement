@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace InventoryManagement.Repository.Repository
 {
@@ -117,6 +118,24 @@ namespace InventoryManagement.Repository.Repository
 
             }
 
+        }
+
+
+        public async Task<(IEnumerable<purchaseOrderDetails>,int)> GetVendorOrders(long id)
+        {
+            try
+            {
+                var vendorsOrder = await _dataAccess.GetData<purchaseOrderDetails, dynamic>("sp_INVPurchaseItemsDetails_GetOrdersByVendorId", new { id });
+                var totalCount = vendorsOrder.Count();
+                return (vendorsOrder,totalCount);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                throw ex;
+
+            }
         }
 
 

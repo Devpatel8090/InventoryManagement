@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace InventoryManagement.Repository.Interface
 {
@@ -14,5 +15,6 @@ namespace InventoryManagement.Repository.Interface
         Task<VendorsDetails> GetVendorDetailById(long id);
         Task<bool> DeleteVendor(long id);
         Task<IEnumerable<VendorsDetails>> GetAllVendorsWithoutFilter();
+        Task<(IEnumerable<purchaseOrderDetails>, int)> GetVendorOrders(long id);
     }
 }

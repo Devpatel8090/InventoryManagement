@@ -21,6 +21,7 @@ namespace InventoryManagement.Entities.Model
         public long CityId { get; set; }
         public string CityName { get; set; }
         
+        public string DocumentNumber { get; set; }
         public  DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

@@ -5,7 +5,6 @@
 @{
 }
 @{
-
     ViewData["Title"] = "";
     Layout = "~/Views/Shared/_INVManagementLayout.cshtml";
 }
@@ -36,7 +35,7 @@
 
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">DocumentNo</span>
-                        <input type="text" id="documentNumber" class="form-control">
+                        <input type="text" id="documentNumber" style="pointer-events:none;background-color:#e9ecef" class="form-control">
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
@@ -57,10 +56,11 @@
 
     <div>
         <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Order</button>
-        <table class="table">
+        <a class="bg__colour rounded-pill border-0 p-1 px-2 me-2 hide"  id="ShowOrderDetailButton" asp-action="VendorOrders" asp-controller="PurchaseInvoice">show Order</a>
+        <table class="table"style="min-height:200px;" >
             <thead>
                 <tr>
-
+                    
                     <th scope="col">ItemId</th>
                     <th scope="col">ItemName</th>
                     <th scope="col">Qty</th>
@@ -144,6 +144,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="~/js/PurchaseInvoice.js" > </script>
+<script src="~/js/VendorOrders.js"> </script>
 
 
 

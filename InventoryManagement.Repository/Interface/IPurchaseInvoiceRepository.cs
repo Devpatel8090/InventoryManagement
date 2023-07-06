@@ -9,5 +9,6 @@ namespace InventoryManagement.Repository.Interface
     public interface IPurchaseInvoiceRepository
     {
         Task<bool> AddOrUpdatePurchaseInvoice(string purchaseObj);
+        Task<string> GetDocumentNumber();
     }
 }

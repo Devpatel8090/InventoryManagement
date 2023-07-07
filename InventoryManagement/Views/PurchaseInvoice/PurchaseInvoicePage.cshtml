@@ -9,7 +9,7 @@
     Layout = "~/Views/Shared/_INVManagementLayout.cshtml";
 }
 @model AccountPayableViewModel
-<div>
+<div id="RightSidePurchaseInvoice">
     <div style="color:#20B2AA" class="text-center fw-bold fs-4">Purchase Invoice</div>
     <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 text-center" onclick="AddRecordInPurchaseItem()">Record</button>
     <div>
@@ -56,7 +56,7 @@
 
     <div>
         <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Order</button>
-        <a class="bg__colour rounded-pill border-0 p-1 px-2 me-2 hide"  id="ShowOrderDetailButton" asp-action="VendorOrders" asp-controller="PurchaseInvoice">show Order</a>
+        <button class="bg__colour rounded-pill border-0 p-1 px-2 me-2 hide"  id="ShowOrderDetailButton" onclick="showVendorOrders()">show Order</button>
         <table class="table"style="min-height:200px;" >
             <thead>
                 <tr>
@@ -144,7 +144,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="~/js/PurchaseInvoice.js" > </script>
-<script src="~/js/VendorOrders.js"> </script>
+
 
 
 

@@ -63,6 +63,7 @@ function FillDetailsOfCustomerInInvoice() {
                 var item = ""
                 var item = `${data.firstName}  ${data.lastName}  \n Email: ${data.email}, \n PhoneNumber: ${data.phoneNumber} `
                 $('#CustomerDetailTextArea').val(item);
+                $('#documentNumber').val(data.documentNumber);
             }
             else {
                 $('#CustomerDetailTextArea').val('');
@@ -126,11 +127,11 @@ function SalesItemValidation() {
         flag = false;
         toastr.error("Please enter positive price");
     }
-    if (qty >  max) {
+    if (parseInt(qty) > parseInt(max)) {
         flag = false;
         toastr.error("Please enter  Quantity Less Than available Stock");
     }
-    if (qty < 0 || qty == "") {
+    if (parseInt(qty) < 0 || qty == "") {
         flag = false;
         toastr.error("Please enter positive qunatity");
     }

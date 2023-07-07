@@ -36,5 +36,16 @@ namespace InventoryManagement.Controllers
             }
 
         }
+        public async Task<IActionResult> CustomerOrders(int id)
+        {
+            AccountPayableViewModel model = new AccountPayableViewModel();
+            var (VendorsDetails, totalCount) = await _unitOfWork.VendorsDetails.GetVendorOrders(id);
+            model.purchaseOrderDetails = VendorsDetails;
+
+            return PartialView("VendorOrders", model);
+
+
+
+        }
     }
 }

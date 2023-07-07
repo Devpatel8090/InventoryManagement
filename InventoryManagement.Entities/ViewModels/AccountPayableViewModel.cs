@@ -15,6 +15,7 @@ namespace InventoryManagement.Entities.ViewModels
         public IEnumerable<City> Cities { get; set; } = Enumerable.Empty<City>();
         public IEnumerable<State> States { get; set; } = Enumerable.Empty<State>();
         public IEnumerable<InventoryItems> Items { get; set; } = Enumerable.Empty<InventoryItems>();
-        
+        public IEnumerable<purchaseOrderDetails> purchaseOrderDetails { get; set; } = Enumerable.Empty<purchaseOrderDetails>();
+
     }
 }

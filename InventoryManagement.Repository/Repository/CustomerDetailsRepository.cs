@@ -110,5 +110,21 @@ namespace InventoryManagement.Repository.Repository
             }
 
         }
+        public async Task<(IEnumerable<SalesOrderDetails>, int)> GetCustomerOrders(long id)
+        {
+            try
+            {
+                var customerOrder = await _dataAccess.GetData<SalesOrderDetails, dynamic>("sp_INVSalesItemsDetails_GetOrdersByCustomerId", new { id });
+                var totalCount = customerOrder.Count();
+                return (customerOrder, totalCount);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                throw ex;
+
+            }
+        }
     }
 }

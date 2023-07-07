@@ -42,6 +42,7 @@ namespace InventoryManagement.Controllers
         public async Task<JsonResult> GetCustomerDetailById(long id)
         {
             var customerDetail = await _unitOfWork.CustomerDetails.GetCustomerDetailById(id);
+            customerDetail.DocumentNumber = await _unitOfWork.SalesInvoice.GetDocumentNumber();
             return Json(customerDetail);
 
         }

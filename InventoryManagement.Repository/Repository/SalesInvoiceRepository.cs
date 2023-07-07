@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagement.Repository.Repository
 {
-    public class SalesInvoiceRepository: ISalesInvoiceRepository
+    public class SalesInvoiceRepository : ISalesInvoiceRepository
     {
         private readonly IDataAccessRepository _dataAccess;
 
@@ -43,7 +43,7 @@ namespace InventoryManagement.Repository.Repository
                     Discount = discount,
                     Amount = amount,
                 };
-                
+
                 await _dataAccess.SaveData("sp_INVSalesInvoice_AddSalesInvoice", new { salesInvoice.CustomerId, salesInvoice.DocumentNumber, salesInvoice.SubTotal, salesInvoice.Discount, salesInvoice.Amount });
                 foreach (JObject item in tableData)
                 {
@@ -65,6 +65,23 @@ namespace InventoryManagement.Repository.Repository
                 return false;
 
 
+
+            }
+        }
+
+
+        public async Task<string> GetDocumentNumber()
+        {
+            try
+            {
+                var docNum = await _dataAccess.GetSingleData<string, dynamic>("sp_INVSalesInvoice_GetDocumentNumber", new { });
+                return docNum;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error => " + ex.Message);
+                return null;
 
             }
         }

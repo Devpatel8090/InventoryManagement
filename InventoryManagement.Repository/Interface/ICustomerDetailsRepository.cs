@@ -15,5 +15,6 @@ namespace InventoryManagement.Repository.Interface
         Task<bool> AddOrUpdateCustomer(string customerObj);
         Task<CustomerDetail> GetCustomerDetailById(long id);
         Task<bool> DeleteCustomer(long id);
+        Task<(IEnumerable<SalesOrderDetails>, int)> GetCustomerOrders(long id);
     }
 }

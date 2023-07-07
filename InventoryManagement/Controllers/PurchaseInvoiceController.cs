@@ -37,22 +37,16 @@ namespace InventoryManagement.Controllers
             
         }
 
-        public IActionResult VendorOrders()
+        public async Task<IActionResult> VendorOrders(int id)
         {
-            AccountPayableViewModel model = new AccountPayableViewModel();           
-            return View();
-        }
-
-        [Route("AccountPayable/PurchaseInvoice/GetPurchaseOrdersByVendor")]
-        [HttpPost]
-        public async Task<IActionResult> GetPurchaseOrdersByVendor(int id)
-        {
-            DataTableFilter filter = new DataTableFilter(Request);
+            AccountPayableViewModel model = new AccountPayableViewModel();
             var (VendorsDetails, totalCount) = await _unitOfWork.VendorsDetails.GetVendorOrders(id);
-            DataTable<purchaseOrderDetails> VendorsOrderDt = new DataTable<purchaseOrderDetails>(VendorsDetails.ToList(), totalCount);
-            return Json(VendorsOrderDt);
+            model.purchaseOrderDetails = VendorsDetails;
+           
+                return PartialView("VendorOrders", model);
+            
+           
+            
         }
-
-
     }
 }

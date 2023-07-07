@@ -38,6 +38,25 @@
         })
     }
 
+function showVendorOrders() {
+    var vendorId = $("#VendorSelectDropDown").val();
+    $.ajax({
+        url: "/purchaseInvoice/VendorOrders?id=" + vendorId,
+        success: function (data) {
+            console.log(data);
+            if (data == null) {
+                toastr.error("Sorry No record Found");
+            }
+            else {
+                $('#RightSidePurchaseInvoice').html(data);
+            }
+            
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+}
 
     var today = new Date();
     var dd = today.getDate();

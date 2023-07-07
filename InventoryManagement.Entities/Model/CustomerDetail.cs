@@ -12,7 +12,8 @@ namespace InventoryManagement.Entities.Model
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        public long PhoneNumber { get; set; }     
+        public long PhoneNumber { get; set; }
+        public string DocumentNumber { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

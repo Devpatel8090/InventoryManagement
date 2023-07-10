@@ -11,5 +11,6 @@ namespace InventoryManagement.Entities.ViewModels
     {
         public IEnumerable<CustomerDetail> customers { get; set; } = Enumerable.Empty<CustomerDetail>();
         public IEnumerable<InventoryItems> Items { get; set; } = Enumerable.Empty<InventoryItems>();
+        public IEnumerable<SalesOrderDetails> salesOrderDetails { get; set; } = Enumerable.Empty<SalesOrderDetails>();
     }
 }

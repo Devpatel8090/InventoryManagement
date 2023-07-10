@@ -64,9 +64,32 @@ function FillDetailsOfCustomerInInvoice() {
                 var item = `${data.firstName}  ${data.lastName}  \n Email: ${data.email}, \n PhoneNumber: ${data.phoneNumber} `
                 $('#CustomerDetailTextArea').val(item);
                 $('#documentNumber').val(data.documentNumber);
+                $('#ShowOrderDetailButtonCustomer').removeClass("hide");
             }
             else {
                 $('#CustomerDetailTextArea').val('');
+            }
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+}
+
+
+
+function showCustomerOrders() {
+    var customerId = $("#CustomerSelectDropDown").val();
+    $.ajax({
+        url: "/SalesInvoice/CustomerOrders?id=" + customerId,
+        success: function (data) {
+            console.log(data);
+            if (data == null) {
+                toastr.error("Sorry No record Found");
+            }
+            else {
+                $('#RightSideSalesInvoice').html(data);
             }
 
         },

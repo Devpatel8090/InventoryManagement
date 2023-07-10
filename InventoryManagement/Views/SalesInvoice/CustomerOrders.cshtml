@@ -4,24 +4,26 @@
 <link rel="stylesheet" href="~/DataTable/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="~/DataTable/css/responsive.dataTables.min.css">
 <link rel="stylesheet" href="~/css/Inventory.css" />
-@model AccountPayableViewModel
+@model AccountReceivableViewModel
 
-@* MISSION SKILLS PAGE*@
+
 <div id="VendorTab mt-1 mp-1">
     <div class="d-flex align-items-center justify-content-between flex-row mb-2">
-        <h3 class="border-bottom border-4 border-dark">VendorOrder</h3>
-        @if (Model.purchaseOrderDetails.Count() > 0)
+        <h3 class="border-bottom border-4 border-dark">CustomerOrder</h3>
+        @if (Model.salesOrderDetails.Count() > 0)
         {
-            <h6 class="border-bottom border-2 border-dark">@Model.purchaseOrderDetails.FirstOrDefault().FirstName  @Model.purchaseOrderDetails.FirstOrDefault().LastName</h6>
+            <div>
+                @*CustomerName:*@ <h6 class="border-bottom border-2 border-dark">@Model.salesOrderDetails.FirstOrDefault().FirstName  @Model.salesOrderDetails.FirstOrDefault().LastName</h6>
+            </div>
         }
 
-        <a class="bg__colour rounded-pill text-decoration-none border-0 p-1 px-2 me-2" asp-action="PurchaseInvoicePage" asp-controller="PurchaseInvoice" style="background-color: #98EECC;">
+        <a class="bg__colour rounded-pill text-decoration-none border-0 p-1 px-2 me-2" asp-action="SalesInvoicePage" asp-controller="SalesInvoice" style="background-color: #98EECC;">
             <span class="me-2"><i class="bi bi-plus-circle"></i></span>Add
         </a>
     </div>
     <hr />
     <div class="table-responsive">
-        <table class="table border DataTablesId" id="vendorOrderTable" style="width:100%">
+        <table class="table border DataTablesId" id="" style="width:100%">
             <thead style="background-color: #f9f9f9;">
                 <tr>
                     <th scope="col">DocumentNumber</th>
@@ -35,7 +37,7 @@
             </thead>
             <tbody>
                 @{
-                    foreach (var item in Model.purchaseOrderDetails)
+                    foreach (var item in Model.salesOrderDetails)
                     {
                         <tr>
                             <td scope="col">@item.DocumentNumber</td>
